@@ -2,41 +2,48 @@
 /**
  * Template for displaying archive pages
  * 
- * @package AuraElementorStarter
+ * @author Aura Marketing
+ * @link https://agenciaaura.mx
+ * @package AuraTheme
  */
 
 get_header(); ?>
 
-<div id="primary" class="content-area">
-    <main id="main" class="site-main">
-        <div class="container">
-            <?php if (have_posts()) : ?>
-                <header class="page-header">
-                    <?php
-                    the_archive_title('<h1 class="page-title">', '</h1>');
-                    the_archive_description('<div class="archive-description">', '</div>');
-                    ?>
-                </header>
+<div class="aura-container">
+    <?php if (have_posts()) : ?>
+        
+        <header class="page-header">
+            <?php
+            the_archive_title('<h1 class="page-title">', '</h1>');
+            the_archive_description('<div class="archive-description">', '</div>');
+            ?>
+        </header>
 
-                <?php while (have_posts()) : the_post(); ?>
-                    <?php get_template_part('template-parts/content', 'archive'); ?>
-                <?php endwhile; ?>
+        <?php while (have_posts()) : the_post(); ?>
+            <?php get_template_part('template-parts/content', 'archive'); ?>
+        <?php endwhile; ?>
 
-                <?php
-                the_posts_navigation(array(
-                    'prev_text' => __('&laquo; Older posts', 'aura-elementor-starter'),
-                    'next_text' => __('Newer posts &raquo;', 'aura-elementor-starter'),
-                ));
-                ?>
+        <?php
+        the_posts_navigation(array(
+            'prev_text' => esc_html__('&laquo; Older posts', 'TEXT_DOMAIN_PLACEHOLDER'),
+            'next_text' => esc_html__('Newer posts &raquo;', 'TEXT_DOMAIN_PLACEHOLDER'),
+        ));
+        ?>
 
-            <?php else : ?>
-                <p><?php _e('It looks like nothing was found at this location. Maybe try a search?', 'aura-elementor-starter'); ?></p>
+    <?php else : ?>
+        
+        <section class="no-results not-found">
+            <header class="page-header">
+                <h1 class="page-title"><?php esc_html_e('Nothing Found', 'TEXT_DOMAIN_PLACEHOLDER'); ?></h1>
+            </header>
+
+            <div class="page-content">
+                <p><?php esc_html_e('It looks like nothing was found at this location. Maybe try a search?', 'TEXT_DOMAIN_PLACEHOLDER'); ?></p>
                 <?php get_search_form(); ?>
-            <?php endif; ?>
-        </div>
-    </main>
+            </div>
+        </section>
+
+    <?php endif; ?>
 </div>
 
-<?php
-get_sidebar();
-get_footer();
+<?php get_footer();

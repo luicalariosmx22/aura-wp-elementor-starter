@@ -2,7 +2,9 @@
 /**
  * The template for displaying comments
  * 
- * @package AuraElementorStarter
+ * @author Aura Marketing
+ * @link https://agenciaaura.mx
+ * @package AuraTheme
  */
 
 if (post_password_required()) {
@@ -17,7 +19,7 @@ if (post_password_required()) {
             $comment_count = get_comments_number();
             if ('1' === $comment_count) {
                 printf(
-                    _x('One thought on &ldquo;%1$s&rdquo;', 'comments title', 'aura-elementor-starter'),
+                    _x('One thought on &ldquo;%1$s&rdquo;', 'comments title', 'TEXT_DOMAIN_PLACEHOLDER'),
                     get_the_title()
                 );
             } else {
@@ -27,7 +29,7 @@ if (post_password_required()) {
                         '%1$s thoughts on &ldquo;%2$s&rdquo;',
                         $comment_count,
                         'comments title',
-                        'aura-elementor-starter'
+                        'TEXT_DOMAIN_PLACEHOLDER'
                     ),
                     number_format_i18n($comment_count),
                     get_the_title()
@@ -50,13 +52,14 @@ if (post_password_required()) {
         <?php
         the_comments_navigation();
 
+        // If comments are closed and there are comments, let's leave a little note, shall we?
         if (!comments_open()) :
         ?>
-            <p class="no-comments"><?php _e('Comments are closed.', 'aura-elementor-starter'); ?></p>
+            <p class="no-comments"><?php esc_html_e('Comments are closed.', 'TEXT_DOMAIN_PLACEHOLDER'); ?></p>
         <?php
         endif;
 
-    endif;
+    endif; // Check for have_comments().
 
     comment_form();
     ?>

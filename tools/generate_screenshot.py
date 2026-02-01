@@ -2,168 +2,200 @@
 """
 Generate Screenshot for WordPress Theme
 Creates a 1200x900px screenshot for the theme
+
+@author Aura Marketing
+@link https://agenciaaura.mx
 """
 
-from PIL import Image, ImageDraw, ImageFont
 import os
+import sys
 from pathlib import Path
 
+try:
+    from PIL import Image, ImageDraw, ImageFont
+except ImportError:
+    print("❌ Error: Pillow is required to generate screenshots.")
+    print("   Install it with: pip install pillow")
+    sys.exit(1)
+
 def create_theme_screenshot():
-    """Generate a professional screenshot for the theme"""
+    """
+    Generate a professional screenshot for the WordPress theme
+    """
     
     # Screenshot dimensions (WordPress standard)
     width, height = 1200, 900
     
     # Colors
     bg_color = '#f8f9fa'
+    header_bg = '#ffffff'
     primary_color = '#0073aa'
-    secondary_color = '#005177'
     text_color = '#333333'
-    white = '#ffffff'
+    border_color = '#e5e5e5'
+    accent_color = '#005177'
     
-    # Create image
+    # Create main image
     img = Image.new('RGB', (width, height), bg_color)
     draw = ImageDraw.Draw(img)
     
-    # Header section
-    header_height = 100
-    draw.rectangle([0, 0, width, header_height], fill=white)
-    
-    # Header border
-    draw.rectangle([0, header_height-2, width, header_height], fill='#e5e5e5')
-    
-    # Logo/Brand area
-    draw.rectangle([50, 25, 300, 75], fill=primary_color)
-    
+    # Try to use system fonts, fallback to PIL default
     try:
-        # Try to load a font (fallback to default if not available)
+        # Try common system fonts
+        title_font = ImageFont.truetype("arial.ttf", 48) if os.name == 'nt' else ImageFont.truetype("/System/Library/Fonts/Arial.ttf", 48)
+        subtitle_font = ImageFont.truetype("arial.ttf", 24) if os.name == 'nt' else ImageFont.truetype("/System/Library/Fonts/Arial.ttf", 24)
+        small_font = ImageFont.truetype("arial.ttf", 16) if os.name == 'nt' else ImageFont.truetype("/System/Library/Fonts/Arial.ttf", 16)
+    except (OSError, IOError):
         try:
-            title_font = ImageFont.truetype("arial.ttf", 36)
-            subtitle_font = ImageFont.truetype("arial.ttf", 18)
-            header_font = ImageFont.truetype("arial.ttf", 24)
-        except:
+            # Try alternative fonts
+            title_font = ImageFont.truetype("calibri.ttf", 48) if os.name == 'nt' else ImageFont.load_default()
+            subtitle_font = ImageFont.truetype("calibri.ttf", 24) if os.name == 'nt' else ImageFont.load_default() 
+            small_font = ImageFont.truetype("calibri.ttf", 16) if os.name == 'nt' else ImageFont.load_default()
+        except (OSError, IOError):
+            # Fallback to default font
             title_font = ImageFont.load_default()
             subtitle_font = ImageFont.load_default()
-            header_font = ImageFont.load_default()
-    except:
-        title_font = ImageFont.load_default()
-        subtitle_font = ImageFont.load_default()
-        header_font = ImageFont.load_default()
+            small_font = ImageFont.load_default()
     
-    # Header text (simulate logo)
-    draw.text((320, 35), "Aura Theme", font=header_font, fill=primary_color)
+    # Browser frame simulation
+    frame_height = 40
+    frame_y = 80
+    
+    # Browser frame background
+    draw.rectangle([80, frame_y, width-80, frame_y + frame_height], fill=border_color)
+    
+    # Browser buttons (simple circles)
+    button_y = frame_y + 12
+    draw.ellipse([100, button_y, 116, button_y + 16], fill='#ff5f56')
+    draw.ellipse([125, button_y, 141, button_y + 16], fill='#ffbd2e') 
+    draw.ellipse([150, button_y, 166, button_y + 16], fill='#27ca3f')
+    
+    # URL bar simulation
+    url_bar_x = 200
+    url_bar_width = 400
+    draw.rectangle([url_bar_x, button_y, url_bar_x + url_bar_width, button_y + 16], 
+                  fill='#ffffff', outline=border_color)
+    
+    # Main content area
+    content_y = frame_y + frame_height
+    content_height = height - content_y - 100
+    
+    draw.rectangle([80, content_y, width-80, content_y + content_height], 
+                  fill=header_bg, outline=border_color)
+    
+    # Header section
+    header_height = 80
+    draw.rectangle([80, content_y, width-80, content_y + header_height], 
+                  fill=header_bg)
+    
+    # Logo placeholder
+    logo_x, logo_y = 120, content_y + 20
+    draw.rectangle([logo_x, logo_y, logo_x + 40, logo_y + 40], fill=primary_color)
     
     # Navigation simulation
-    nav_items = ["Home", "About", "Services", "Blog", "Contact"]
-    nav_x = 600
-    for item in nav_items:
-        draw.text((nav_x, 40), item, font=subtitle_font, fill=text_color)
-        nav_x += 100
+    nav_x = 200
+    nav_items = ["Home", "About", "Services", "Contact"]
+    for i, item in enumerate(nav_items):
+        item_x = nav_x + (i * 80)
+        draw.text((item_x, content_y + 30), item, font=small_font, fill=text_color)
     
-    # Hero section
-    hero_y = header_height + 50
-    hero_height = 300
+    # Main hero section
+    hero_y = content_y + header_height + 60
+    hero_center_x = width // 2
     
-    # Hero background with gradient effect
-    for i in range(hero_height):
-        alpha = int(255 * (1 - i / hero_height))
-        color = f"#{primary_color[1:3]}{primary_color[3:5]}{primary_color[5:7]}"
-        draw.rectangle([0, hero_y + i, width, hero_y + i + 1], 
-                      fill=primary_color)
+    # Business name (main title)
+    business_name = "THEME_NAME_PLACEHOLDER"
+    try:
+        bbox = draw.textbbox((0, 0), business_name, font=title_font)
+        text_width = bbox[2] - bbox[0]
+    except AttributeError:
+        # Fallback for older Pillow versions
+        text_width = len(business_name) * 12  # Approximate width
     
-    # Hero content
-    hero_title = "Beautiful WordPress Themes"
-    hero_subtitle = "Elementor-Ready & Responsive Design"
+    draw.text((hero_center_x - text_width//2, hero_y), business_name, 
+             font=title_font, fill=primary_color)
     
-    # Calculate text position for centering
-    title_bbox = draw.textbbox((0, 0), hero_title, font=title_font)
-    title_width = title_bbox[2] - title_bbox[0]
-    title_x = (width - title_width) // 2
+    # Business tagline
+    tagline = "TAGLINE_PLACEHOLDER"
+    try:
+        bbox = draw.textbbox((0, 0), tagline, font=subtitle_font)
+        tagline_width = bbox[2] - bbox[0]
+    except AttributeError:
+        tagline_width = len(tagline) * 8  # Approximate width
     
-    subtitle_bbox = draw.textbbox((0, 0), hero_subtitle, font=subtitle_font)
-    subtitle_width = subtitle_bbox[2] - subtitle_bbox[0]
-    subtitle_x = (width - subtitle_width) // 2
+    draw.text((hero_center_x - tagline_width//2, hero_y + 70), tagline, 
+             font=subtitle_font, fill=text_color)
     
-    draw.text((title_x, hero_y + 80), hero_title, font=title_font, fill=white)
-    draw.text((subtitle_x, hero_y + 140), hero_subtitle, font=subtitle_font, fill=white)
+    # Feature boxes simulation
+    box_y = hero_y + 140
+    box_width = 200
+    box_height = 120
+    box_spacing = 40
     
-    # Button simulation
-    button_width, button_height = 200, 50
-    button_x = (width - button_width) // 2
-    button_y = hero_y + 200
+    # Calculate starting position for 3 boxes
+    total_width = 3 * box_width + 2 * box_spacing
+    start_x = (width - total_width) // 2
     
-    draw.rectangle([button_x, button_y, button_x + button_width, button_y + button_height], 
-                  fill=white, outline=primary_color, width=2)
-    
-    button_text = "Get Started"
-    button_bbox = draw.textbbox((0, 0), button_text, font=subtitle_font)
-    button_text_width = button_bbox[2] - button_bbox[0]
-    button_text_height = button_bbox[3] - button_bbox[1]
-    
-    button_text_x = button_x + (button_width - button_text_width) // 2
-    button_text_y = button_y + (button_height - button_text_height) // 2
-    
-    draw.text((button_text_x, button_text_y), button_text, font=subtitle_font, fill=primary_color)
-    
-    # Content section with cards
-    content_y = hero_y + hero_height + 50
-    card_width = 300
-    card_height = 200
-    card_spacing = 50
-    
-    # Calculate positions for 3 cards
-    total_cards_width = 3 * card_width + 2 * card_spacing
-    start_x = (width - total_cards_width) // 2
+    features = ["Responsive", "Elementor", "Fast Loading"]
     
     for i in range(3):
-        card_x = start_x + i * (card_width + card_spacing)
+        box_x = start_x + i * (box_width + box_spacing)
         
-        # Card background
-        draw.rectangle([card_x, content_y, card_x + card_width, content_y + card_height], 
-                      fill=white, outline='#e5e5e5', width=1)
+        # Box background
+        draw.rectangle([box_x, box_y, box_x + box_width, box_y + box_height], 
+                      fill='#ffffff', outline=border_color, width=2)
         
-        # Card header
-        draw.rectangle([card_x, content_y, card_x + card_width, content_y + 60], 
-                      fill='#f8f9fa')
+        # Feature icon placeholder
+        icon_size = 30
+        icon_x = box_x + (box_width - icon_size) // 2
+        icon_y = box_y + 20
+        draw.rectangle([icon_x, icon_y, icon_x + icon_size, icon_y + icon_size], 
+                      fill=accent_color)
         
-        # Card title
-        card_titles = ["Responsive", "Elementor Ready", "Clean Code"]
-        draw.text((card_x + 20, content_y + 20), card_titles[i], font=subtitle_font, fill=text_color)
+        # Feature title
+        feature_title = features[i]
+        try:
+            bbox = draw.textbbox((0, 0), feature_title, font=subtitle_font)
+            feature_width = bbox[2] - bbox[0]
+        except AttributeError:
+            feature_width = len(feature_title) * 8  # Approximate width
         
-        # Card content simulation
-        for j in range(3):
-            line_y = content_y + 80 + j * 25
-            line_width = card_width - 40
-            if j == 2:
-                line_width = int(line_width * 0.7)  # Shorter last line
-            
-            draw.rectangle([card_x + 20, line_y, card_x + 20 + line_width, line_y + 15], 
-                          fill='#e5e5e5')
+        draw.text((box_x + (box_width - feature_width) // 2, icon_y + icon_size + 15), 
+                 feature_title, font=subtitle_font, fill=text_color)
     
-    # Footer
-    footer_y = height - 80
-    draw.rectangle([0, footer_y, width, height], fill=text_color)
+    # Footer section
+    footer_y = height - 60
+    footer_text = "Theme by Aura Marketing • agenciaaura.mx"
     
-    footer_text = "© 2026 Aura Elementor Starter Theme"
-    footer_bbox = draw.textbbox((0, 0), footer_text, font=subtitle_font)
-    footer_text_width = footer_bbox[2] - footer_bbox[0]
-    footer_x = (width - footer_text_width) // 2
+    try:
+        bbox = draw.textbbox((0, 0), footer_text, font=small_font)
+        footer_width = bbox[2] - bbox[0]
+    except AttributeError:
+        footer_width = len(footer_text) * 6  # Approximate width
     
-    draw.text((footer_x, footer_y + 25), footer_text, font=subtitle_font, fill=white)
+    draw.text((hero_center_x - footer_width//2, footer_y), footer_text, 
+             font=small_font, fill=text_color)
     
-    # Save the image
+    # Save the screenshot
     output_path = Path(__file__).parent.parent / 'screenshot.png'
-    img.save(output_path, 'PNG', quality=90, optimize=True)
+    img.save(output_path, 'PNG', quality=95, optimize=True)
     
-    print(f"✓ Theme screenshot generated: {output_path}")
-    print(f"   Dimensions: {width}x{height}px")
-    print(f"   File size: {os.path.getsize(output_path)} bytes")
+    file_size = os.path.getsize(output_path)
+    
+    print(f"✅ Theme screenshot generated successfully!")
+    print(f"   📁 Location: {output_path}")
+    print(f"   📏 Dimensions: {width}x{height}px")
+    print(f"   💾 File size: {file_size:,} bytes")
+    print(f"   🎨 Ready for WordPress theme showcase")
+    
+    return output_path
 
 if __name__ == "__main__":
     try:
         create_theme_screenshot()
-    except ImportError:
-        print("❌ PIL (Pillow) is required to generate screenshots.")
-        print("   Install it with: pip install Pillow")
     except Exception as e:
         print(f"❌ Error generating screenshot: {e}")
+        print("\nTroubleshooting:")
+        print("1. Make sure Pillow is installed: pip install pillow")
+        print("2. Check file permissions in the theme directory")
+        print("3. Ensure you're running this from the tools/ directory")
+        sys.exit(1)

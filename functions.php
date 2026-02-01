@@ -1,9 +1,11 @@
 <?php
 /**
- * Aura Elementor Starter Theme Functions
+ * Theme Functions - WordPress Elementor Theme
  * 
- * @package AuraElementorStarter
- * @version 1.0.0
+ * @author Aura Marketing
+ * @link https://agenciaaura.mx
+ * @package AuraTheme
+ * @version 0.1.0
  */
 
 // Prevent direct access
@@ -12,89 +14,131 @@ if (!defined('ABSPATH')) {
 }
 
 /**
- * Theme setup and supports
+ * Theme setup and configuration
  */
-function aura_theme_setup() {
-    // Add theme support for various features
+function PREFIX_PHP_PLACEHOLDERtheme_setup() {
+    // Add default posts and comments RSS feed links to head
+    add_theme_support('automatic-feed-links');
+    
+    // Let WordPress manage the document title
     add_theme_support('title-tag');
+    
+    // Enable support for Post Thumbnails on posts and pages
     add_theme_support('post-thumbnails');
-    add_theme_support('responsive-embeds');
-    add_theme_support('wp-block-styles');
-    add_theme_support('align-wide');
-    add_theme_support('custom-logo');
+    
+    // Add HTML5 theme support
     add_theme_support('html5', array(
         'search-form',
         'comment-form',
         'comment-list',
         'gallery',
         'caption',
+        'style',
+        'script'
     ));
-
+    
+    // Add custom logo support
+    add_theme_support('custom-logo', array(
+        'height'      => 80,
+        'width'       => 240,
+        'flex-height' => true,
+        'flex-width'  => true,
+    ));
+    
     // Register navigation menus
     register_nav_menus(array(
-        'primary' => __('Primary Menu', 'aura-elementor-starter'),
-        'footer' => __('Footer Menu', 'aura-elementor-starter'),
+        'primary' => esc_html__('Primary Menu', 'TEXT_DOMAIN_PLACEHOLDER'),
     ));
+    
+    // Elementor compatibility
+    add_theme_support('elementor-header-footer');
 }
-add_action('after_setup_theme', 'aura_theme_setup');
+add_action('after_setup_theme', 'PREFIX_PHP_PLACEHOLDERtheme_setup');
+
+/**
+ * Set content width for media embeds and images
+ */
+function PREFIX_PHP_PLACEHOLDERcontent_width() {
+    if (!isset($GLOBALS['content_width'])) {
+        $GLOBALS['content_width'] = 1200;
+    }
+}
+add_action('after_setup_theme', 'PREFIX_PHP_PLACEHOLDERcontent_width', 0);
 
 /**
  * Enqueue scripts and styles
  */
-function aura_enqueue_scripts() {
-    // Enqueue main stylesheet
-    wp_enqueue_style('aura-style', get_stylesheet_uri(), array(), '1.0.0');
-    wp_enqueue_style('aura-main', get_template_directory_uri() . '/assets/css/main.css', array(), '1.0.0');
+function PREFIX_PHP_PLACEHOLDERscripts() {
+    // Theme stylesheet
+    wp_enqueue_style(
+        'TEXT_DOMAIN_PLACEHOLDER-style',
+        get_stylesheet_uri(),
+        array(),
+        wp_get_theme()->get('Version')
+    );
     
-    // Enqueue main JavaScript
-    wp_enqueue_script('aura-main', get_template_directory_uri() . '/assets/js/main.js', array('jquery'), '1.0.0', true);
+    // Main stylesheet
+    wp_enqueue_style(
+        'TEXT_DOMAIN_PLACEHOLDER-main',
+        get_template_directory_uri() . '/assets/css/main.css',
+        array('TEXT_DOMAIN_PLACEHOLDER-style'),
+        wp_get_theme()->get('Version')
+    );
     
-    // Enqueue comment reply script when needed
+    // Main JavaScript (no jQuery dependency unless needed)
+    wp_enqueue_script(
+        'TEXT_DOMAIN_PLACEHOLDER-main',
+        get_template_directory_uri() . '/assets/js/main.js',
+        array(), // No dependencies
+        wp_get_theme()->get('Version'),
+        true
+    );
+    
+    // Comment reply script when needed
     if (is_singular() && comments_open() && get_option('thread_comments')) {
         wp_enqueue_script('comment-reply');
     }
 }
-add_action('wp_enqueue_scripts', 'aura_enqueue_scripts');
-
-/**
- * Elementor compatibility
- */
-function aura_elementor_theme_support() {
-    // Elementor theme location support
-    add_theme_support('elementor-header-footer');
-}
-add_action('after_setup_theme', 'aura_elementor_theme_support');
+add_action('wp_enqueue_scripts', 'PREFIX_PHP_PLACEHOLDERscripts');
 
 /**
  * Register widget areas
  */
-function aura_widgets_init() {
+function PREFIX_PHP_PLACEHOLDERwidgets_init() {
     register_sidebar(array(
-        'name'          => __('Sidebar', 'aura-elementor-starter'),
+        'name'          => esc_html__('Sidebar', 'TEXT_DOMAIN_PLACEHOLDER'),
         'id'            => 'sidebar-1',
-        'description'   => __('Add widgets here.', 'aura-elementor-starter'),
+        'description'   => esc_html__('Add widgets here.', 'TEXT_DOMAIN_PLACEHOLDER'),
         'before_widget' => '<section id="%1$s" class="widget %2$s">',
         'after_widget'  => '</section>',
         'before_title'  => '<h2 class="widget-title">',
         'after_title'   => '</h2>',
     ));
-
+    
     register_sidebar(array(
-        'name'          => __('Footer 1', 'aura-elementor-starter'),
+        'name'          => esc_html__('Footer 1', 'TEXT_DOMAIN_PLACEHOLDER'),
         'id'            => 'footer-1',
-        'description'   => __('Footer widget area 1.', 'aura-elementor-starter'),
+        'description'   => esc_html__('Footer widget area 1.', 'TEXT_DOMAIN_PLACEHOLDER'),
         'before_widget' => '<section id="%1$s" class="widget %2$s">',
         'after_widget'  => '</section>',
         'before_title'  => '<h3 class="widget-title">',
         'after_title'   => '</h3>',
     ));
 }
-add_action('widgets_init', 'aura_widgets_init');
+add_action('widgets_init', 'PREFIX_PHP_PLACEHOLDERwidgets_init');
 
 /**
- * Limit excerpt length
+ * Custom excerpt length
  */
-function aura_excerpt_length($length) {
-    return 20;
+function PREFIX_PHP_PLACEHOLDERexcerpt_length($length) {
+    return 25;
 }
-add_filter('excerpt_length', 'aura_excerpt_length');
+add_filter('excerpt_length', 'PREFIX_PHP_PLACEHOLDERexcerpt_length');
+
+/**
+ * Custom excerpt more text
+ */
+function PREFIX_PHP_PLACEHOLDERexcerpt_more($more) {
+    return '&hellip;';
+}
+add_filter('excerpt_more', 'PREFIX_PHP_PLACEHOLDERexcerpt_more');

@@ -1,8 +1,10 @@
 <?php
 /**
- * The header for our theme
+ * Theme Header
  * 
- * @package AuraElementorStarter
+ * @author Aura Marketing
+ * @link https://agenciaaura.mx
+ * @package AuraTheme
  */
 ?>
 <!doctype html>
@@ -17,42 +19,46 @@
 <body <?php body_class(); ?>>
 <?php wp_body_open(); ?>
 
-<div id="page" class="site">
-    <a class="skip-link screen-reader-text" href="#primary"><?php _e('Skip to content', 'aura-elementor-starter'); ?></a>
-
-    <header id="masthead" class="site-header">
-        <div class="container">
-            <div class="site-branding">
+<?php 
+if (function_exists('elementor_theme_do_location') && elementor_theme_do_location('header')) {
+    // Elementor Header Template
+} else {
+    // Default Header
+?>
+<header class="site-header">
+    <div class="aura-container">
+        <div class="site-branding">
+            <?php if (has_custom_logo()) : ?>
+                <?php the_custom_logo(); ?>
+            <?php else : ?>
+                <h1 class="site-title">
+                    <a href="<?php echo esc_url(home_url('/')); ?>" rel="home">
+                        <?php bloginfo('name'); ?>
+                    </a>
+                </h1>
                 <?php
-                if (has_custom_logo()) :
-                    the_custom_logo();
-                else :
+                $description = get_bloginfo('description', 'display');
+                if ($description || is_customize_preview()) :
                 ?>
-                    <h1 class="site-title">
-                        <a href="<?php echo esc_url(home_url('/')); ?>" rel="home">
-                            <?php bloginfo('name'); ?>
-                        </a>
-                    </h1>
-                    <?php
-                    $description = get_bloginfo('description', 'display');
-                    if ($description || is_customize_preview()) :
-                    ?>
-                        <p class="site-description"><?php echo $description; ?></p>
-                    <?php endif;
-                endif;
-                ?>
-            </div>
-
-            <nav id="site-navigation" class="main-navigation">
-                <button class="menu-toggle" aria-controls="primary-menu" aria-expanded="false">
-                    <?php _e('Primary Menu', 'aura-elementor-starter'); ?>
-                </button>
-                <?php
-                wp_nav_menu(array(
-                    'theme_location' => 'primary',
-                    'menu_id'        => 'primary-menu',
-                ));
-                ?>
-            </nav>
+                    <p class="site-description"><?php echo $description; ?></p>
+                <?php endif; ?>
+            <?php endif; ?>
         </div>
-    </header>
+
+        <nav class="main-navigation" role="navigation" aria-label="<?php esc_attr_e('Primary Menu', 'TEXT_DOMAIN_PLACEHOLDER'); ?>">
+            <?php
+            wp_nav_menu(array(
+                'theme_location' => 'primary',
+                'menu_id'        => 'primary-menu',
+                'container'      => false,
+                'fallback_cb'    => 'wp_page_menu',
+            ));
+            ?>
+        </nav>
+    </div>
+</header>
+<?php
+}
+?>
+
+<main id="primary" class="site-main">

@@ -1,20 +1,16 @@
 <?php
 /**
- * Template part for displaying posts in archives
+ * Template part for displaying posts in archives and index
  * 
- * @package AuraElementorStarter
+ * @author Aura Marketing
+ * @link https://agenciaaura.mx
+ * @package AuraTheme
  */
 ?>
 
 <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
     <header class="entry-header">
-        <?php
-        if (is_singular()) :
-            the_title('<h1 class="entry-title">', '</h1>');
-        else :
-            the_title('<h2 class="entry-title"><a href="' . esc_url(get_permalink()) . '" rel="bookmark">', '</a></h2>');
-        endif;
-        ?>
+        <?php the_title('<h2 class="entry-title"><a href="' . esc_url(get_permalink()) . '" rel="bookmark">', '</a></h2>'); ?>
 
         <?php if ('post' === get_post_type()) : ?>
             <div class="entry-meta">
@@ -25,9 +21,8 @@
                         </time>
                     </a>
                 </span>
-
                 <span class="byline">
-                    <?php _e('by', 'aura-elementor-starter'); ?> 
+                    <?php esc_html_e('by', 'TEXT_DOMAIN_PLACEHOLDER'); ?> 
                     <span class="author vcard">
                         <a class="url fn n" href="<?php echo esc_url(get_author_posts_url(get_the_author_meta('ID'))); ?>">
                             <?php echo esc_html(get_the_author()); ?>
@@ -53,18 +48,12 @@
     <footer class="entry-footer">
         <?php if (has_category()) : ?>
             <span class="cat-links">
-                <?php _e('Posted in', 'aura-elementor-starter'); ?> <?php the_category(', '); ?>
-            </span>
-        <?php endif; ?>
-
-        <?php if (has_tag()) : ?>
-            <span class="tags-links">
-                <?php the_tags('', ', ', ''); ?>
+                <?php esc_html_e('Posted in', 'TEXT_DOMAIN_PLACEHOLDER'); ?> <?php the_category(', '); ?>
             </span>
         <?php endif; ?>
 
         <a href="<?php echo esc_url(get_permalink()); ?>" class="read-more">
-            <?php _e('Read More', 'aura-elementor-starter'); ?>
+            <?php esc_html_e('Read More', 'TEXT_DOMAIN_PLACEHOLDER'); ?>
         </a>
     </footer>
 </article>

@@ -1,261 +1,304 @@
 #!/usr/bin/env python3
 """
-WordPress Theme Setup Tool
-Automates the setup process for Aura Elementor Starter theme
+Setup Theme Configuration
+Converts the starter theme into a business-specific theme
+
+@author Aura Marketing
+@link https://agenciaaura.mx
+
+Usage:
+python setup_theme.py --name "Nombre Negocio" --tagline "Tagline" --slug "slug-del-negocio"
 """
 
 import os
-import json
-import shutil
-import subprocess
+import re
+import argparse
+import sys
 from pathlib import Path
 
-class ThemeSetup:
-    def __init__(self):
-        self.theme_path = Path(__file__).parent.parent
-        self.config_file = self.theme_path / 'tools' / 'theme.config.json'
-        self.load_config()
+# Common articles to ignore when creating PHP prefix
+IGNORE_WORDS = {'el', 'la', 'los', 'las', 'de', 'del', 'y', 'en', 'con', 'para', 'por', 'un', 'una', 'al'}
+
+def generate_php_prefix(business_name):
+    """
+    Generate PHP prefix from business name
+    Takes initials from main words (ignoring common articles)
+    Format: aura_[initials]_
     
-    def load_config(self):
-        """Load theme configuration"""
-        try:
-            with open(self.config_file, 'r', encoding='utf-8') as f:
-                self.config = json.load(f)
-        except FileNotFoundError:
-            self.config = self.get_default_config()
-            self.save_config()
+    Example: "La Carreta Verde" -> "aura_lcv_"
+    """
+    # Clean and split words
+    words = re.sub(r'[^\w\s]', '', business_name.lower()).split()
     
-    def get_default_config(self):
-        """Default theme configuration"""
-        return {
-            "theme_name": "Aura WordPress Elementor Starter",
-            "text_domain": "aura-elementor-starter",
-            "version": "1.0.0",
-            "author": "Your Name",
-            "description": "A starter theme optimized for Elementor with modern WordPress features.",
-            "tags": ["elementor", "responsive", "modern", "clean", "minimal"],
-            "requires_wp": "5.0",
-            "tested_wp": "6.4",
-            "requires_php": "7.4",
-            "license": "GPL v2 or later",
-            "development": {
-                "use_sass": False,
-                "use_postcss": False,
-                "use_webpack": False,
-                "use_gulp": False
-            },
-            "features": {
-                "custom_logo": True,
-                "post_thumbnails": True,
-                "menus": ["primary", "footer"],
-                "widgets": ["sidebar-1", "footer-1"],
-                "elementor_support": True,
-                "woocommerce_support": False
-            }
-        }
+    # Filter out common articles and get initials
+    initials = []
+    for word in words:
+        if word not in IGNORE_WORDS and len(word) > 0:
+            initials.append(word[0])
     
-    def save_config(self):
-        """Save configuration to file"""
-        with open(self.config_file, 'w', encoding='utf-8') as f:
-            json.dump(self.config, f, indent=2)
+    # Fallback if no valid words found
+    if not initials:
+        initials = [word[0] for word in words if len(word) > 0]
     
-    def update_theme_info(self):
-        """Update theme information in style.css"""
-        style_file = self.theme_path / 'style.css'
+    # Limit to reasonable length (max 5 initials)
+    if len(initials) > 5:
+        initials = initials[:5]
+    
+    prefix = f"aura_{''.join(initials)}_"
+    return prefix
+
+def find_text_files(theme_root):
+    """
+    Find all text files that should be processed
+    Excludes binary files and hidden files
+    """
+    text_extensions = {'.php', '.css', '.js', '.json', '.md', '.txt', '.xml', '.yml', '.yaml'}
+    binary_extensions = {'.png', '.jpg', '.jpeg', '.gif', '.ico', '.svg', '.woff', '.woff2', '.ttf', '.eot'}
+    
+    text_files = []
+    
+    for root, dirs, files in os.walk(theme_root):
+        # Skip hidden directories, git, and cache
+        dirs[:] = [d for d in dirs if not d.startswith('.') and d not in {'__pycache__', 'node_modules'}]
         
-        header = f"""/*
-Theme Name: {self.config['theme_name']}
-Description: {self.config['description']}
-Version: {self.config['version']}
-Author: {self.config['author']}
-Text Domain: {self.config['text_domain']}
-Tags: {', '.join(self.config['tags'])}
-Requires at least: {self.config['requires_wp']}
-Tested up to: {self.config['tested_wp']}
-Requires PHP: {self.config['requires_php']}
-License: {self.config['license']}
-License URI: https://www.gnu.org/licenses/gpl-2.0.html
+        for file in files:
+            file_path = Path(root) / file
+            
+            # Skip hidden files
+            if file.startswith('.'):
+                continue
+            
+            # Check extension
+            ext = file_path.suffix.lower()
+            
+            # Include text files, exclude binaries
+            if ext in text_extensions or (ext not in binary_extensions and file_path.suffix):
+                text_files.append(file_path)
+    
+    return text_files
 
-This theme, like WordPress, is licensed under the GPL.
-Use it to make something cool, have fun, and share what you've learned with others.
-*/"""
-
-        # Read existing content after header
-        with open(style_file, 'r', encoding='utf-8') as f:
+def replace_placeholders_in_file(file_path, replacements):
+    """
+    Replace placeholders in a single file
+    Returns True if file was modified, False otherwise
+    """
+    try:
+        # Read file content
+        with open(file_path, 'r', encoding='utf-8') as f:
             content = f.read()
         
-        # Find end of header comment
-        header_end = content.find('*/')
-        if header_end != -1:
-            remaining_content = content[header_end + 2:].strip()
-            new_content = header + '\n\n' + remaining_content
-        else:
-            new_content = header + '\n\n' + content
+        # Store original content to check if changes were made
+        original_content = content
         
-        with open(style_file, 'w', encoding='utf-8') as f:
-            f.write(new_content)
+        # Apply replacements
+        for placeholder, replacement in replacements.items():
+            content = content.replace(placeholder, replacement)
         
-        print(f"✓ Updated theme header in style.css")
-    
-    def setup_development_environment(self):
-        """Setup development tools based on configuration"""
-        dev_config = self.config.get('development', {})
-        
-        if dev_config.get('use_sass'):
-            self.setup_sass()
-        
-        if dev_config.get('use_postcss'):
-            self.setup_postcss()
-        
-        if dev_config.get('use_webpack'):
-            self.setup_webpack()
-        
-        if dev_config.get('use_gulp'):
-            self.setup_gulp()
-    
-    def setup_sass(self):
-        """Setup Sass compilation"""
-        scss_dir = self.theme_path / 'assets' / 'scss'
-        scss_dir.mkdir(exist_ok=True)
-        
-        # Create main.scss
-        main_scss = scss_dir / 'main.scss'
-        with open(main_scss, 'w', encoding='utf-8') as f:
-            f.write("""// Aura Elementor Starter - Main SCSS
-// Import partials here
-@import 'variables';
-@import 'mixins';
-@import 'base';
-@import 'components';
-@import 'layout';
-
-// Responsive styles
-@import 'responsive';
-""")
-        
-        print("✓ Sass structure created")
-    
-    def create_child_theme_template(self):
-        """Create a child theme template"""
-        child_theme_dir = self.theme_path.parent / f"{self.config['text_domain']}-child"
-        child_theme_dir.mkdir(exist_ok=True)
-        
-        # Child theme style.css
-        child_style = child_theme_dir / 'style.css'
-        with open(child_style, 'w', encoding='utf-8') as f:
-            f.write(f"""/*
-Theme Name: {self.config['theme_name']} Child
-Description: Child theme of {self.config['theme_name']}
-Template: {self.config['text_domain']}
-Version: 1.0.0
-*/
-
-/* Add your custom styles here */
-""")
-        
-        # Child theme functions.php
-        child_functions = child_theme_dir / 'functions.php'
-        with open(child_functions, 'w', encoding='utf-8') as f:
-            f.write(f"""<?php
-/**
- * Child theme functions
- */
-
-// Enqueue parent theme styles
-function child_enqueue_styles() {{
-    wp_enqueue_style('parent-style', get_template_directory_uri() . '/style.css');
-}}
-add_action('wp_enqueue_scripts', 'child_enqueue_styles');
-""")
-        
-        print(f"✓ Child theme template created at {child_theme_dir}")
-    
-    def validate_theme_files(self):
-        """Validate required WordPress theme files"""
-        required_files = [
-            'style.css',
-            'index.php',
-            'functions.php'
-        ]
-        
-        missing_files = []
-        for file in required_files:
-            if not (self.theme_path / file).exists():
-                missing_files.append(file)
-        
-        if missing_files:
-            print(f"⚠ Missing required files: {', '.join(missing_files)}")
-            return False
-        else:
-            print("✓ All required theme files present")
+        # Write back if changed
+        if content != original_content:
+            with open(file_path, 'w', encoding='utf-8') as f:
+                f.write(content)
             return True
+        
+        return False
+        
+    except (UnicodeDecodeError, PermissionError, IOError) as e:
+        print(f"⚠️  Error processing {file_path}: {e}")
+        return False
+
+def validate_no_placeholders(theme_root, allow_remaining=False):
+    """
+    Validate that no placeholders remain in text files
+    """
+    placeholders_found = []
     
-    def setup_hooks_and_filters(self):
-        """Add common WordPress hooks and filters to functions.php"""
-        hooks_content = """
-/**
- * Additional theme customizations
- */
-
-// Add custom post type support
-function aura_add_post_type_support() {
-    add_post_type_support('page', 'excerpt');
-}
-add_action('init', 'aura_add_post_type_support');
-
-// Custom excerpt more link
-function aura_excerpt_more($more) {
-    return '...';
-}
-add_filter('excerpt_more', 'aura_excerpt_more');
-
-// Remove WordPress version from head
-remove_action('wp_head', 'wp_generator');
-
-// Disable emoji scripts
-function aura_disable_emojis() {
-    remove_action('wp_head', 'print_emoji_detection_script', 7);
-    remove_action('admin_print_scripts', 'print_emoji_detection_script');
-    remove_action('wp_print_styles', 'print_emoji_styles');
-    remove_action('admin_print_styles', 'print_emoji_styles');
-}
-add_action('init', 'aura_disable_emojis');
-
-// Security headers
-function aura_security_headers() {
-    header('X-Frame-Options: SAMEORIGIN');
-    header('X-Content-Type-Options: nosniff');
-    header('X-XSS-Protection: 1; mode=block');
-}
-add_action('send_headers', 'aura_security_headers');
-"""
-        
-        functions_file = self.theme_path / 'functions.php'
-        with open(functions_file, 'a', encoding='utf-8') as f:
-            f.write(hooks_content)
-        
-        print("✓ Added additional hooks and filters")
+    # Common placeholder patterns
+    placeholder_patterns = [
+        r'THEME_NAME_PLACEHOLDER',
+        r'TAGLINE_PLACEHOLDER', 
+        r'aura-business-slug',
+        r'aura_abc_',
+        r'PREFIX_PHP_PLACEHOLDER',
+        r'TEXT_DOMAIN_PLACEHOLDER',
+        r'BUSINESS_NAME_PLACEHOLDER',
+        r'AURA BUSINESS NAME',
+        r'AURA BUSINESS TAGLINE'
+    ]
     
-    def run_setup(self):
-        """Run complete theme setup"""
-        print("🚀 Starting Aura Elementor Starter theme setup...")
-        print()
+    text_files = find_text_files(theme_root)
+    
+    for file_path in text_files:
+        try:
+            with open(file_path, 'r', encoding='utf-8') as f:
+                content = f.read()
+            
+            # Check for each placeholder pattern
+            for pattern in placeholder_patterns:
+                if re.search(pattern, content, re.IGNORECASE):
+                    placeholders_found.append({
+                        'file': file_path.relative_to(theme_root),
+                        'pattern': pattern
+                    })
+                    
+        except (UnicodeDecodeError, PermissionError, IOError):
+            continue  # Skip files we can't read
+    
+    if placeholders_found and not allow_remaining:
+        print("\n❌ Validation Failed: Placeholders still found!")
+        for item in placeholders_found:
+            print(f"   📄 {item['file']}: {item['pattern']}")
+        return False
+    elif placeholders_found and allow_remaining:
+        print(f"\n⚠️  {len(placeholders_found)} placeholders remain (allowed)")
+    else:
+        print("\n✅ Validation Passed: No placeholders found!")
+    
+    return True
+
+def setup_theme(business_name, tagline, slug):
+    """
+    Main theme setup function
+    """
+    theme_root = Path(__file__).parent.parent
+    
+    # Generate derived values
+    php_prefix = generate_php_prefix(business_name)
+    text_domain = slug
+    
+    # Define all replacements
+    replacements = {
+        # Main placeholders
+        'THEME_NAME_PLACEHOLDER': business_name,
+        'TAGLINE_PLACEHOLDER': tagline,
+        'aura-business-slug': slug,
+        'aura_abc_': php_prefix,
         
-        self.update_theme_info()
-        self.validate_theme_files()
-        self.setup_development_environment()
-        self.setup_hooks_and_filters()
+        # Additional placeholders for compatibility
+        'PREFIX_PHP_PLACEHOLDER': php_prefix,
+        'TEXT_DOMAIN_PLACEHOLDER': text_domain,
+        'BUSINESS_NAME_PLACEHOLDER': business_name,
+        'AURA BUSINESS NAME': business_name,
+        'AURA BUSINESS TAGLINE': tagline,
         
-        print()
-        print("✨ Theme setup completed successfully!")
-        print()
-        print("Next steps:")
-        print("1. Upload the theme to your WordPress installation")
-        print("2. Activate the theme in WordPress admin")
-        print("3. Install and activate Elementor plugin")
-        print("4. Customize your theme through WordPress Customizer")
-        print("5. Create a child theme for custom modifications")
+        # Theme metadata
+        'VERSION_PLACEHOLDER': '1.0.0',
+        'DESCRIPTION_PLACEHOLDER': f'Professional WordPress theme for {business_name}',
+        'AUTHOR_PLACEHOLDER': 'Aura Marketing',
+        'AUTHOR_URI_PLACEHOLDER': 'https://agenciaaura.mx'
+    }
+    
+    print("🎯 Theme Setup Configuration")
+    print("=" * 50)
+    print(f"   🏢 Business Name: {business_name}")
+    print(f"   💬 Tagline: {tagline}")
+    print(f"   🔗 Slug: {slug}")
+    print(f"   🔧 PHP Prefix: {php_prefix}")
+    print(f"   📦 Text Domain: {text_domain}")
+    print()
+    
+    # Find and process text files
+    text_files = find_text_files(theme_root)
+    
+    print(f"🔍 Found {len(text_files)} text files to process...")
+    
+    files_changed = 0
+    processed_files = []
+    
+    # Process each file
+    for file_path in text_files:
+        was_modified = replace_placeholders_in_file(file_path, replacements)
+        
+        if was_modified:
+            files_changed += 1
+            processed_files.append(file_path.relative_to(theme_root))
+    
+    # Print summary
+    print(f"\n📝 Processing Complete!")
+    print(f"   ✅ {files_changed} files modified")
+    print(f"   📁 {len(text_files) - files_changed} files unchanged")
+    
+    if processed_files:
+        print(f"\n📄 Files Modified:")
+        for file_path in sorted(processed_files):
+            print(f"   • {file_path}")
+    
+    return files_changed > 0
+
+def main():
+    """
+    Main entry point
+    """
+    parser = argparse.ArgumentParser(
+        description='Setup WordPress theme for a specific business',
+        formatter_class=argparse.RawDescriptionHelpFormatter,
+        epilog="""
+Examples:
+  python setup_theme.py --name "La Carreta Verde" --tagline "Comida Saludable" --slug "carreta-verde"
+  python setup_theme.py --name "Tech Solutions Inc" --tagline "Innovation Matters" --slug "tech-solutions"
+
+Notes:
+  • PHP prefix is auto-generated from business name initials
+  • Text domain equals slug
+  • All text files will be processed (excludes binaries like images)
+        """
+    )
+    
+    parser.add_argument('--name', 
+                       required=True,
+                       help='Business name (e.g., "La Carreta Verde")')
+    
+    parser.add_argument('--tagline',
+                       required=True, 
+                       help='Business tagline (e.g., "Comida Saludable")')
+    
+    parser.add_argument('--slug',
+                       required=True,
+                       help='Theme slug (e.g., "carreta-verde")')
+    
+    parser.add_argument('--allow-remaining-placeholders',
+                       action='store_true',
+                       help='Skip validation of remaining placeholders')
+    
+    args = parser.parse_args()
+    
+    # Validate inputs
+    if not args.name.strip():
+        print("❌ Error: Business name cannot be empty")
+        sys.exit(1)
+    
+    if not args.tagline.strip():
+        print("❌ Error: Tagline cannot be empty") 
+        sys.exit(1)
+    
+    if not args.slug.strip() or not re.match(r'^[a-z0-9-]+$', args.slug):
+        print("❌ Error: Slug must contain only lowercase letters, numbers, and hyphens")
+        sys.exit(1)
+    
+    print("🚀 Aura Theme Business Setup")
+    print("=" * 60)
+    
+    # Setup the theme
+    try:
+        success = setup_theme(args.name, args.tagline, args.slug)
+        
+        if success:
+            # Validate results
+            theme_root = Path(__file__).parent.parent
+            validate_no_placeholders(theme_root, args.allow_remaining_placeholders)
+            
+            print(f"\n🎉 Setup Complete!")
+            print(f"   💡 Theme is ready for WordPress installation")
+            print(f"   📁 Consider renaming folder to: {args.slug}")
+            print(f"   🖼️  Run 'python tools/generate_screenshot.py' to update screenshot")
+        else:
+            print("\n⚠️  No changes were made - placeholders may have been replaced already")
+    
+    except KeyboardInterrupt:
+        print("\n⚠️  Setup cancelled by user")
+        sys.exit(1)
+    except Exception as e:
+        print(f"\n❌ Error during setup: {e}")
+        sys.exit(1)
 
 if __name__ == "__main__":
-    setup = ThemeSetup()
-    setup.run_setup()
+    main()

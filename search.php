@@ -2,53 +2,94 @@
 /**
  * Template for displaying search results pages
  * 
- * @package AuraElementorStarter
+ * @author Aura Marketing
+ * @link https://agenciaaura.mx
+ * @package AuraTheme
  */
 
 get_header(); ?>
 
-<div id="primary" class="content-area">
-    <main id="main" class="site-main">
-        <div class="container">
+<div class="aura-container">
+    <header class="page-header">
+        <h1 class="page-title">
+            <?php
+            printf(
+                esc_html__('Search Results for: %s', 'TEXT_DOMAIN_PLACEHOLDER'),
+                '<span>' . get_search_query() . '</span>'
+            );
+            ?>
+        </h1>
+    </header>
+
+    <?php if (have_posts()) : ?>
+        
+        <?php while (have_posts()) : the_post(); ?>
+            <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
+                <header class="entry-header">
+                    <?php the_title('<h2 class="entry-title"><a href="' . esc_url(get_permalink()) . '" rel="bookmark">', '</a></h2>'); ?>
+
+                    <?php if ('post' === get_post_type()) : ?>
+                        <div class="entry-meta">
+                            <span class="posted-on">
+                                <a href="<?php echo esc_url(get_permalink()); ?>" rel="bookmark">
+                                    <time class="entry-date published updated" datetime="<?php echo esc_attr(get_the_date('c')); ?>">
+                                        <?php echo esc_html(get_the_date()); ?>
+                                    </time>
+                                </a>
+                            </span>
+                            <span class="byline">
+                                <?php esc_html_e('by', 'TEXT_DOMAIN_PLACEHOLDER'); ?> 
+                                <span class="author vcard">
+                                    <a class="url fn n" href="<?php echo esc_url(get_author_posts_url(get_the_author_meta('ID'))); ?>">
+                                        <?php echo esc_html(get_the_author()); ?>
+                                    </a>
+                                </span>
+                            </span>
+                        </div>
+                    <?php endif; ?>
+                </header>
+
+                <?php if (has_post_thumbnail()) : ?>
+                    <div class="post-thumbnail">
+                        <a href="<?php echo esc_url(get_permalink()); ?>">
+                            <?php the_post_thumbnail('medium'); ?>
+                        </a>
+                    </div>
+                <?php endif; ?>
+
+                <div class="entry-summary">
+                    <?php the_excerpt(); ?>
+                </div>
+
+                <footer class="entry-footer">
+                    <a href="<?php echo esc_url(get_permalink()); ?>" class="read-more">
+                        <?php esc_html_e('Read More', 'TEXT_DOMAIN_PLACEHOLDER'); ?>
+                    </a>
+                </footer>
+            </article>
+        <?php endwhile; ?>
+
+        <?php
+        the_posts_navigation(array(
+            'prev_text' => esc_html__('&laquo; Older posts', 'TEXT_DOMAIN_PLACEHOLDER'),
+            'next_text' => esc_html__('Newer posts &raquo;', 'TEXT_DOMAIN_PLACEHOLDER'),
+        ));
+        ?>
+
+    <?php else : ?>
+        
+        <section class="no-results not-found">
             <header class="page-header">
-                <h1 class="page-title">
-                    <?php
-                    printf(
-                        esc_html__('Search Results for: %s', 'aura-elementor-starter'),
-                        '<span>' . get_search_query() . '</span>'
-                    );
-                    ?>
-                </h1>
+                <h1 class="page-title"><?php esc_html_e('Nothing Found', 'TEXT_DOMAIN_PLACEHOLDER'); ?></h1>
             </header>
 
-            <?php if (have_posts()) : ?>
-                <?php while (have_posts()) : the_post(); ?>
-                    <?php get_template_part('template-parts/content', 'archive'); ?>
-                <?php endwhile; ?>
+            <div class="page-content">
+                <p><?php esc_html_e('Sorry, but nothing matched your search terms. Please try again with some different keywords.', 'TEXT_DOMAIN_PLACEHOLDER'); ?></p>
+                <?php get_search_form(); ?>
+            </div>
+        </section>
 
-                <?php
-                the_posts_navigation(array(
-                    'prev_text' => __('&laquo; Older posts', 'aura-elementor-starter'),
-                    'next_text' => __('Newer posts &raquo;', 'aura-elementor-starter'),
-                ));
-                ?>
-
-            <?php else : ?>
-                <section class="no-results not-found">
-                    <header class="page-header">
-                        <h1 class="page-title"><?php _e('Nothing here', 'aura-elementor-starter'); ?></h1>
-                    </header>
-
-                    <div class="page-content">
-                        <p><?php _e('Sorry, but nothing matched your search terms. Please try again with some different keywords.', 'aura-elementor-starter'); ?></p>
-                        <?php get_search_form(); ?>
-                    </div>
-                </section>
-            <?php endif; ?>
-        </div>
-    </main>
+    <?php endif; ?>
 </div>
 
-<?php
-get_sidebar();
-get_footer();
+<?php get_footer();

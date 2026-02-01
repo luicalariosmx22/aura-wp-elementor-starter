@@ -2,7 +2,9 @@
 /**
  * The sidebar containing the main widget area
  * 
- * @package AuraElementorStarter
+ * @author Aura Marketing
+ * @link https://agenciaaura.mx
+ * @package AuraTheme
  */
 
 if (!is_active_sidebar('sidebar-1')) {

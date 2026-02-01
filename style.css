@@ -1,40 +1,49 @@
 /*
-Theme Name: Aura WordPress Elementor Starter
-Description: A starter theme optimized for Elementor with modern WordPress features.
-Version: 1.0.0
-Author: Your Name
-Text Domain: aura-elementor-starter
-Tags: elementor, responsive, modern, clean, minimal
-Requires at least: 5.0
-Tested up to: 6.4
-Requires PHP: 7.4
-License: GPL v2 or later
+Theme Name: THEME_NAME_PLACEHOLDER
+Theme URI: https://agenciaaura.mx
+Author: Aura Marketing
+Author URI: https://agenciaaura.mx
+Description: Theme base Elementor-ready para THEME_NAME_PLACEHOLDER. (TAGLINE_PLACEHOLDER)
+Version: 0.1.0
+License: GNU General Public License v2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
+Text Domain: TEXT_DOMAIN_PLACEHOLDER
+Tags: elementor, responsive, custom-logo, custom-menu
 
-This theme, like WordPress, is licensed under the GPL.
-Use it to make something cool, have fun, and share what you've learned with others.
+Tema WordPress minimalista optimizado para Elementor.
+Desarrollado por Aura Marketing - https://agenciaaura.mx
 */
 
-/* Basic reset and foundation styles */
+/* Reset básico */
 * {
     box-sizing: border-box;
 }
 
+/* Body reset para no interferir con Elementor */
 body {
     margin: 0;
     padding: 0;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    line-height: 1.6;
-    color: #333;
 }
 
-.container {
+/* Imágenes responsive */
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+/* Container básico para contenido no-Elementor */
+.aura-container {
     max-width: 1200px;
     margin: 0 auto;
     padding: 0 20px;
 }
 
-/* Elementor compatibility */
-.elementor-kit-6 {
-    color: var(--e-global-color-text);
+/* Elementor compatibility - no interferir con el page builder */
+.elementor-widget-container {
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}
+
+.elementor-section.elementor-section-boxed > .elementor-container {
+    max-width: 1200px;
 }

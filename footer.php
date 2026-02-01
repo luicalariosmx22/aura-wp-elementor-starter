@@ -1,31 +1,38 @@
-    </div><!-- #page -->
+<?php
+/**
+ * Template for displaying footer
+ * 
+ * @author Aura Marketing
+ * @link https://agenciaaura.mx
+ * @package AuraTheme
+ */
+?>
+</main>
 
-    <footer id="colophon" class="site-footer">
-        <div class="container">
-            <div class="footer-widgets">
-                <?php if (is_active_sidebar('footer-1')) : ?>
-                    <div class="footer-widget-area">
-                        <?php dynamic_sidebar('footer-1'); ?>
-                    </div>
-                <?php endif; ?>
-            </div>
-
-            <div class="site-info">
-                <p>&copy; <?php echo date('Y'); ?> <?php bloginfo('name'); ?>. 
-                <?php _e('Powered by', 'aura-elementor-starter'); ?> 
-                <a href="<?php echo esc_url(__('https://wordpress.org/')); ?>">WordPress</a> 
-                <?php _e('& Elementor', 'aura-elementor-starter'); ?>.</p>
-            </div>
-
-            <?php
-            wp_nav_menu(array(
-                'theme_location' => 'footer',
-                'menu_class'     => 'footer-menu',
-                'fallback_cb'    => false,
-            ));
-            ?>
+<?php 
+if (function_exists('elementor_theme_do_location') && elementor_theme_do_location('footer')) {
+    // Elementor Footer Template
+} else {
+    // Default Footer
+?>
+<footer class="site-footer">
+    <div class="aura-container">
+        <div class="site-info">
+            <p>
+                <?php
+                printf(
+                    esc_html__('Theme by %1$s • %2$s', 'TEXT_DOMAIN_PLACEHOLDER'),
+                    '<a href="https://agenciaaura.mx" target="_blank" rel="noopener">Aura Marketing</a>',
+                    '<a href="https://agenciaaura.mx" target="_blank" rel="noopener">agenciaaura.mx</a>'
+                );
+                ?>
+            </p>
         </div>
-    </footer>
+    </div>
+</footer>
+<?php
+}
+?>
 
 <?php wp_footer(); ?>
 

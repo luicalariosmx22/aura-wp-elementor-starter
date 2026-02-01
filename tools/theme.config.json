@@ -1,88 +1,57 @@
 {
-  "theme_name": "Aura WordPress Elementor Starter",
-  "text_domain": "aura-elementor-starter",
-  "version": "1.0.0",
-  "author": "Your Name",
-  "description": "A starter theme optimized for Elementor with modern WordPress features.",
-  "tags": [
-    "elementor",
-    "responsive", 
-    "modern",
-    "clean",
-    "minimal",
-    "blog",
-    "custom-background",
-    "custom-colors",
-    "custom-header",
-    "custom-logo",
-    "custom-menu",
-    "featured-images",
-    "flexible-header",
-    "footer-widgets",
-    "full-width-template",
-    "theme-options",
-    "translation-ready"
-  ],
-  "requires_wp": "5.0",
-  "tested_wp": "6.4",
-  "requires_php": "7.4",
-  "license": "GPL v2 or later",
-  "license_uri": "https://www.gnu.org/licenses/gpl-2.0.html",
-  "development": {
-    "use_sass": false,
-    "use_postcss": false,
-    "use_webpack": false,
-    "use_gulp": false,
-    "use_composer": false,
-    "use_npm": false
+  "_description": "Configuración base para temas de WordPress personalizados por negocio. Los placeholders serán reemplazados por el script setup_theme.py",
+  "placeholders": {
+    "THEME_NAME_PLACEHOLDER": "AURA BUSINESS NAME",
+    "THEME_SLUG_PLACEHOLDER": "aura-business-slug",
+    "TEXT_DOMAIN_PLACEHOLDER": "aura-business-slug", 
+    "PREFIX_PHP_PLACEHOLDER": "aura_abc_",
+    "TAGLINE_PLACEHOLDER": "AURA BUSINESS TAGLINE"
+  },
+  "meta": {
+    "theme_name": "THEME_NAME_PLACEHOLDER",
+    "text_domain": "TEXT_DOMAIN_PLACEHOLDER",
+    "version": "1.0.0",
+    "author": "Aura Marketing",
+    "author_uri": "https://agenciaaura.mx",
+    "description": "TAGLINE_PLACEHOLDER - Tema WordPress optimizado para Elementor",
+    "license": "GPL v2 or later",
+    "license_uri": "https://www.gnu.org/licenses/gpl-2.0.html",
+    "requires_php": "7.4",
+    "requires_wp": "5.0",
+    "tested_wp": "6.4",
+    "elementor_tested": "3.18",
+    "elementor_pro_tested": "3.18"
   },
   "features": {
-    "custom_logo": true,
     "post_thumbnails": true,
-    "responsive_embeds": true,
-    "wp_block_styles": true,
-    "align_wide": true,
-    "html5_support": true,
-    "title_tag": true,
+    "custom_logo": true,
+    "custom_background": true,
+    "custom_header": false,
     "menus": {
-      "primary": "Primary Menu",
-      "footer": "Footer Menu"
+      "primary": "Primary Menu"
     },
     "widgets": {
-      "sidebar-1": "Sidebar",
+      "sidebar": "Sidebar",
       "footer-1": "Footer 1"
     },
-    "elementor_support": true,
-    "elementor_header_footer": true,
-    "woocommerce_support": false,
-    "custom_header": false,
-    "custom_background": false
+    "image_sizes": {
+      "featured": {
+        "width": 1200,
+        "height": 600,
+        "crop": true
+      },
+      "thumbnail-large": {
+        "width": 400,
+        "height": 300,
+        "crop": true
+      }
+    }
   },
-  "colors": {
-    "primary": "#0073aa",
-    "secondary": "#005177",
-    "text": "#333333",
-    "background": "#ffffff",
-    "light_background": "#f8f9fa",
-    "border": "#e5e5e5"
-  },
-  "typography": {
-    "font_family_base": "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif",
-    "font_size_base": "16px",
-    "line_height_base": "1.6"
-  },
-  "spacing": {
-    "xs": "0.5rem",
-    "sm": "1rem", 
-    "md": "1.5rem",
-    "lg": "2rem",
-    "xl": "3rem"
-  },
-  "breakpoints": {
-    "mobile": "480px",
-    "tablet": "768px",
-    "desktop": "1024px",
-    "large": "1200px"
+  "elementor": {
+    "theme_builder": false,
+    "custom_breakpoints": true,
+    "experiments": [],
+    "default_schemes": false
   },
   "assets": {
     "css": [
@@ -93,44 +62,14 @@
       "assets/js/main.js"
     ]
   },
-  "templates": {
-    "page_templates": [
-      "templates/template-fullwidth.php",
-      "templates/template-blank.php"
-    ],
-    "template_parts": [
-      "template-parts/content-archive.php"
-    ]
+  "development": {
+    "prefix": "PREFIX_PHP_PLACEHOLDER",
+    "text_domain": "TEXT_DOMAIN_PLACEHOLDER"
   },
-  "image_sizes": {
-    "thumbnail": [150, 150],
-    "medium": [300, 300],
-    "medium_large": [768, 0],
-    "large": [1024, 1024]
-  },
-  "security": {
-    "remove_wp_version": true,
-    "disable_emojis": true,
-    "security_headers": true,
-    "disable_xmlrpc": false,
-    "hide_login_errors": false
-  },
-  "performance": {
-    "lazy_loading": true,
-    "minify_css": false,
-    "minify_js": false,
-    "compress_images": false
-  },
-  "seo": {
-    "meta_description": true,
-    "open_graph": false,
-    "twitter_cards": false,
-    "structured_data": false
-  },
-  "accessibility": {
-    "skip_links": true,
-    "keyboard_navigation": true,
-    "screen_reader_text": true,
-    "focus_management": true
-  }
+  "tags": [
+    "elementor",
+    "responsive",
+    "business",
+    "professional"
+  ]
 }
