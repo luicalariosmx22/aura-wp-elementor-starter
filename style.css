@@ -1,0 +1,40 @@
+/*
+Theme Name: Aura WordPress Elementor Starter
+Description: A starter theme optimized for Elementor with modern WordPress features.
+Version: 1.0.0
+Author: Your Name
+Text Domain: aura-elementor-starter
+Tags: elementor, responsive, modern, clean, minimal
+Requires at least: 5.0
+Tested up to: 6.4
+Requires PHP: 7.4
+License: GPL v2 or later
+License URI: https://www.gnu.org/licenses/gpl-2.0.html
+
+This theme, like WordPress, is licensed under the GPL.
+Use it to make something cool, have fun, and share what you've learned with others.
+*/
+
+/* Basic reset and foundation styles */
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+    color: #333;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* Elementor compatibility */
+.elementor-kit-6 {
+    color: var(--e-global-color-text);
+}
