@@ -1,0 +1,289 @@
+[
+  {
+    "id": "section_services_header",
+    "elType": "section",
+    "isInner": false,
+    "settings": {
+      "layout": "boxed",
+      "gap": "default",
+      "padding": {
+        "unit": "px",
+        "top": "80",
+        "right": "20",
+        "bottom": "60",
+        "left": "20"
+      }
+    },
+    "elements": [
+      {
+        "id": "column_services_header",
+        "elType": "column",
+        "isInner": false,
+        "settings": {
+          "_column_size": 100,
+          "_inline_size": null
+        },
+        "elements": [
+          {
+            "id": "heading_services",
+            "elType": "widget",
+            "widgetType": "heading",
+            "settings": {
+              "title": "Nuestros Servicios",
+              "size": "xl",
+              "header_size": "h1",
+              "align": "center",
+              "color": "#333333"
+            }
+          },
+          {
+            "id": "text_services_intro",
+            "elType": "widget",
+            "widgetType": "text-editor",
+            "settings": {
+              "editor": "<p style=\"text-align: center; font-size: 18px; color: #666; max-width: 800px; margin: 0 auto;\">En AURA BUSINESS NAME ofrecemos una amplia gama de servicios diseñados para satisfacer las necesidades específicas de tu negocio y ayudarte a alcanzar tus objetivos.</p>",
+              "align": "center"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "section_services_list",
+    "elType": "section",
+    "isInner": false,
+    "settings": {
+      "layout": "boxed",
+      "gap": "default",
+      "background_background": "classic",
+      "background_color": "#f8f9fa",
+      "padding": {
+        "unit": "px",
+        "top": "80",
+        "right": "20",
+        "bottom": "80",
+        "left": "20"
+      }
+    },
+    "elements": [
+      {
+        "id": "column_services_content",
+        "elType": "column",
+        "isInner": false,
+        "settings": {
+          "_column_size": 100,
+          "_inline_size": null
+        },
+        "elements": [
+          {
+            "id": "icon_list_services",
+            "elType": "widget",
+            "widgetType": "icon-list",
+            "settings": {
+              "icon_list": [
+                {
+                  "text": "Consultoría Estratégica",
+                  "icon": {
+                    "value": "fas fa-lightbulb",
+                    "library": "fa-solid"
+                  },
+                  "_id": "service_1"
+                },
+                {
+                  "text": "Desarrollo de Soluciones",
+                  "icon": {
+                    "value": "fas fa-cogs",
+                    "library": "fa-solid"
+                  },
+                  "_id": "service_2"
+                },
+                {
+                  "text": "Soporte Técnico 24/7",
+                  "icon": {
+                    "value": "fas fa-headset",
+                    "library": "fa-solid"
+                  },
+                  "_id": "service_3"
+                },
+                {
+                  "text": "Capacitación y Entrenamiento",
+                  "icon": {
+                    "value": "fas fa-graduation-cap",
+                    "library": "fa-solid"
+                  },
+                  "_id": "service_4"
+                },
+                {
+                  "text": "Optimización de Procesos",
+                  "icon": {
+                    "value": "fas fa-chart-line",
+                    "library": "fa-solid"
+                  },
+                  "_id": "service_5"
+                },
+                {
+                  "text": "Mantenimiento Preventivo",
+                  "icon": {
+                    "value": "fas fa-tools",
+                    "library": "fa-solid"
+                  },
+                  "_id": "service_6"
+                }
+              ],
+              "icon_color": "#007cba",
+              "text_color": "#333333",
+              "space_between": {
+                "unit": "px",
+                "size": 20
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "section_service_details",
+    "elType": "section",
+    "isInner": false,
+    "settings": {
+      "layout": "boxed",
+      "gap": "default",
+      "padding": {
+        "unit": "px",
+        "top": "80",
+        "right": "20",
+        "bottom": "60",
+        "left": "20"
+      }
+    },
+    "elements": [
+      {
+        "id": "column_detail_1",
+        "elType": "column",
+        "isInner": false,
+        "settings": {
+          "_column_size": 50,
+          "_inline_size": null
+        },
+        "elements": [
+          {
+            "id": "heading_detail_1",
+            "elType": "widget",
+            "widgetType": "heading",
+            "settings": {
+              "title": "Servicios Principales",
+              "size": "large",
+              "header_size": "h2",
+              "color": "#333333"
+            }
+          },
+          {
+            "id": "text_detail_1",
+            "elType": "widget",
+            "widgetType": "text-editor",
+            "settings": {
+              "editor": "<p>Nuestros servicios principales están diseñados para cubrir todas las necesidades de tu negocio:</p><ul><li><strong>Consultoría Estratégica:</strong> Análisis profundo y estrategias personalizadas</li><li><strong>Desarrollo de Soluciones:</strong> Implementación de tecnologías avanzadas</li><li><strong>Soporte Técnico:</strong> Asistencia continua cuando la necesites</li></ul>"
+            }
+          }
+        ]
+      },
+      {
+        "id": "column_detail_2",
+        "elType": "column",
+        "isInner": false,
+        "settings": {
+          "_column_size": 50,
+          "_inline_size": null
+        },
+        "elements": [
+          {
+            "id": "heading_detail_2",
+            "elType": "widget",
+            "widgetType": "heading",
+            "settings": {
+              "title": "Servicios Complementarios",
+              "size": "large",
+              "header_size": "h2",
+              "color": "#333333"
+            }
+          },
+          {
+            "id": "text_detail_2",
+            "elType": "widget",
+            "widgetType": "text-editor",
+            "settings": {
+              "editor": "<p>Además, ofrecemos servicios que complementan perfectamente tu operación:</p><ul><li><strong>Capacitación:</strong> Entrenamiento especializado para tu equipo</li><li><strong>Optimización:</strong> Mejora continua de procesos y resultados</li><li><strong>Mantenimiento:</strong> Cuidado preventivo de tus sistemas</li></ul>"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "section_services_cta",
+    "elType": "section",
+    "isInner": false,
+    "settings": {
+      "layout": "boxed",
+      "gap": "default",
+      "background_background": "classic",
+      "background_color": "#007cba",
+      "padding": {
+        "unit": "px",
+        "top": "60",
+        "right": "20",
+        "bottom": "60",
+        "left": "20"
+      }
+    },
+    "elements": [
+      {
+        "id": "column_services_cta",
+        "elType": "column",
+        "isInner": false,
+        "settings": {
+          "_column_size": 100,
+          "_inline_size": null
+        },
+        "elements": [
+          {
+            "id": "heading_services_cta",
+            "elType": "widget",
+            "widgetType": "heading",
+            "settings": {
+              "title": "¿Necesitas más información?",
+              "size": "large",
+              "header_size": "h2",
+              "align": "center",
+              "color": "#ffffff"
+            }
+          },
+          {
+            "id": "text_services_cta",
+            "elType": "widget",
+            "widgetType": "text-editor",
+            "settings": {
+              "editor": "<p style=\"text-align: center; color: #ffffff;\">Contáctanos para conocer cómo nuestros servicios pueden transformar tu negocio.</p>",
+              "align": "center"
+            }
+          },
+          {
+            "id": "button_services_cta",
+            "elType": "widget",
+            "widgetType": "button",
+            "settings": {
+              "text": "Solicitar Cotización",
+              "align": "center",
+              "size": "lg",
+              "background_color": "#ffffff",
+              "color": "#007cba",
+              "hover_color": "#005177"
+            }
+          }
+        ]
+      }
+    ]
+  }
+]

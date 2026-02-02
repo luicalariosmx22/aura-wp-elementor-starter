@@ -1,374 +1,217 @@
-# Aura WordPress Starter Theme
+# 🌟 Aura Starter Kit - WordPress Monorepo
 
-Un starter theme personalizable para WordPress optimizado para Elementor. Diseñado para crear rápidamente temas únicos para negocios locales y empresas.
+**🎨 Un ecosistema completo de desarrollo WordPress con tema avanzado y plugin de automatización**
 
-**Desarrollado por [Aura Marketing](https://agenciaaura.mx)**
+Desarrollado por **[Aura Marketing](https://agenciaaura.mx)** para acelerar el desarrollo de sitios WordPress profesionales con integración completa de Elementor.
 
-## 🎯 ¿Qué es este starter theme?
+## 🚀 ¿Qué es Aura Starter Kit?
 
-Este es un tema base que permite generar rápidamente temas de WordPress personalizados para diferentes negocios. Incluye:
+Un **monorepo completo** que incluye:
 
-- ✅ **Elementor Ready**: Optimizado para Elementor
-- ✅ **Responsive**: Diseño adaptable a todos los dispositivos
-- ✅ **Personalizable**: Sistema de placeholders para branding
-- ✅ **Optimizado**: SEO y velocidad de carga
-- ✅ **Herramientas**: Scripts Python para automatización
+- **🎨 Tema WordPress avanzado** con 40+ opciones del Customizer
+- **🔌 Plugin automatizador** para crear páginas y menús
+- **🧩 Integración completa de Elementor** sin dependencias del Theme Builder
+- **📱 Diseño responsive** con sistema de variables CSS
+- **🛠️ Herramientas de desarrollo** en Python para automatización
 
-## 🚀 Uso Rápido
+## 📁 Estructura del Proyecto
 
-### 1. Personalizar para un negocio
-
-```bash
-python tools/setup_theme.py --name "La Carreta Verde" --tagline "Comida fresca y local" --slug "la-carreta-verde"
+```
+aura-starter-kit/
+├── themes/
+│   └── aura-wp-elementor-starter/     # Tema WordPress completo
+│       ├── functions.php              # 40+ Customizer controls
+│       ├── style.css                  # Sistema de variables CSS
+│       ├── assets/                    # CSS y JavaScript
+│       └── tools/                     # Scripts Python
+└── plugins/
+    └── aura-site-bootstrapper/        # Plugin automatizador
+        ├── aura-site-bootstrapper.php # Lógica principal
+        ├── includes/                  # Funciones modulares
+        └── templates/elementor/       # JSON templates
 ```
 
-Esto creará un tema personalizado con:
-- Nombre: "La Carreta Verde"
-- Descripción: "Comida fresca y local"
-- Slug: "la-carreta-verde"
-- Prefijos PHP únicos
+## ✨ Características Principales
 
-### 2. Generar screenshot
+### 🎨 Tema WordPress Avanzado
+
+- **40+ Opciones del Customizer** organizadas en 6 secciones
+- **Variables CSS dinámicas** para personalización en tiempo real
+- **Header responsive** con menú mobile JavaScript
+- **Footer customizable** con redes sociales
+- **Compatibilidad completa** con Elementor
+
+### 🔌 Plugin Site Bootstrapper
+
+- **Creación automática** de páginas esenciales
+- **Configuración de menús** WordPress
+- **Importación de templates** JSON de Elementor
+- **Sistema de placeholders** para branding dinámico
+- **Detección inteligente** del estado de Elementor
+
+### 🧩 Integración Elementor
+
+- **4 Templates JSON** (Home, About, Services, Contact)
+- **Sistema de placeholders** (`AURA_BUSINESS_NAME`, `AURA_BUSINESS_TAGLINE`)
+- **Importación automática** sin Theme Builder
+- **Reporte de debug** para transparencia
+
+## 🚀 Instalación y Uso
+
+### 1. Instalación en WordPress
 
 ```bash
-python tools/generate_screenshot.py
+# Descargar el monorepo
+git clone https://github.com/luicalariosmx22/aura-wp-elementor-starter.git
+
+# Copiar tema a wp-content/themes/
+cp -r aura-starter-kit/themes/aura-wp-elementor-starter wp-content/themes/
+
+# Copiar plugin a wp-content/plugins/
+cp -r aura-starter-kit/plugins/aura-site-bootstrapper wp-content/plugins/
 ```
 
-### 3. Instalar en WordPress
+### 2. Activación
 
-1. Comprime la carpeta del tema
-2. Sube a WordPress Admin → Apariencia → Temas
-3. Activa el tema
-4. Instala Elementor (recomendado)
+1. **Activar el tema**: WordPress Admin → Apariencia → Temas
+2. **Activar el plugin**: WordPress Admin → Plugins → Aura Site Bootstrapper
+3. **Configurar**: Admin → Aura Bootstrapper
 
-## 📋 Requisitos
+### 3. Configuración Rápida
 
-- WordPress 5.0+
-- PHP 7.4+
-- Python 3.6+ (para herramientas de desarrollo)
-- Elementor Plugin (recomendado)
+En el panel de administración del plugin:
 
-## 🔧 Herramientas Incluidas
+1. **Detecta Elementor** automáticamente
+2. **Instala/Activa Elementor** si es necesario
+3. **Configura business info**: Nombre y tagline
+4. **Ejecuta setup**: Crea páginas, menús y aplica templates
 
-### setup_theme.py
-Personaliza el tema con información del negocio:
+## 🛠️ Herramientas de Desarrollo
 
-**Parámetros:**
-- `--name`: Nombre del negocio
-- `--tagline`: Eslogan o descripción
-- `--slug`: Identificador único (se genera automáticamente si no se especifica)
+### Setup del Tema
 
-**Ejemplos:**
 ```bash
-# Restaurante
-python tools/setup_theme.py --name "La Carreta Verde" --tagline "Comida fresca y local" --slug "la-carreta-verde"
+cd themes/aura-wp-elementor-starter/tools/
 
-# Consultorio médico  
-python tools/setup_theme.py --name "Dr. García Medicina" --tagline "Cuidando tu salud"
-
-# Tienda
-python tools/setup_theme.py --name "Boutique Luna" --tagline "Moda única para ti"
-```
-
-### generate_screenshot.py
-Genera un screenshot profesional del tema automáticamente.
-
-**Requisitos:**
-```bash
-pip install pillow
-```
-
-**Uso:**
-```bash
-python tools/generate_screenshot.py
-```
-
-## 🖼️ Cómo Generar screenshot.png
-
-El tema incluye un script para generar automáticamente el archivo `screenshot.png` requerido por WordPress:
-
-### Instalación de Dependencias
-```bash
-# Instalar Pillow (requerido)
-pip install pillow
+# Personalizar tema para un negocio
+python setup_theme.py --name "Mi Negocio" --tagline "Mi Eslogan" --slug "mi-negocio"
 ```
 
 ### Generar Screenshot
+
 ```bash
-# Desde la raíz del tema
-python tools/generate_screenshot.py
-```
+# Instalar dependencias
+pip install pillow
 
-Esto creará un archivo `screenshot.png` de 1200x900px en la raíz del tema con:
-- Nombre del negocio (placeholder)
-- Tagline del negocio (placeholder) 
-- Diseño responsive simulado
-- Créditos de Aura Marketing
-
-**Tip:** Ejecuta este comando después de personalizar el tema con `setup_theme.py` para que use el nombre real del negocio.
-
----
-
-## 📦 Generar ZIP para Distribución
-
-El tema incluye un script para crear un archivo ZIP listo para instalar en WordPress:
-
-### Uso Básico
-```bash
-# Generar ZIP con configuración automática
-python tools/build_zip.py
-
-# ZIP con nombre personalizado
-python tools/build_zip.py --name mi-tema-personalizado
-
-# Excluir archivos de desarrollo (sin tools/, README.md, etc.)
-python tools/build_zip.py --exclude-dev
-
-# Combinando opciones
-python tools/build_zip.py --name tema-produccion --exclude-dev
-```
-
-### Características del ZIP
-- **Estructura limpia**: Carpeta con nombre del tema
-- **Auto-exclusión**: Elimina `.git`, `__pycache__`, `.vscode`, etc.
-- **Validación**: Verifica archivos esenciales (style.css, functions.php, index.php)
-- **Compresión optimizada**: Archivo pequeño para uploads rápidos
-- **Información detallada**: Muestra tamaño, archivos incluidos y próximos pasos
-
-### Subir a WordPress
-1. Ejecutar `python tools/build_zip.py`
-2. Ir a WordPress Admin → Apariencia → Temas → Añadir nuevo
-3. Hacer clic en "Subir tema"
-4. Seleccionar el archivo ZIP generado
-5. Instalar y activar
-
----
-
-## 📄 Plantillas Incluidas
-
-El tema incluye plantillas especiales optimizadas para diferentes casos de uso:
-
-### **Full Width**
-- **Cuándo usar**: Para páginas que necesitan más espacio horizontal
-- **Características**: Mantiene header y footer del tema, sin sidebar
-- **Ideal para**: Páginas de servicios, landing pages con Elementor
-- **Seleccionar**: En el editor de páginas → Atributos → Plantilla → "Full Width"
-
-### **Blank (No Header/Footer)**
-- **Cuándo usar**: Para páginas completamente personalizadas con Elementor
-- **Características**: Sin header ni footer, HTML mínimo
-- **Ideal para**: Landing pages, páginas de ventas, diseños 100% Elementor
-- **Seleccionar**: En el editor de páginas → Atributos → Plantilla → "Blank (No Header/Footer)"
-
-**Tip**: Usa "Blank" cuando quieras control total del diseño y "Full Width" cuando necesites mantener la navegación del sitio.
-
-## 📁 Estructura del Tema
-
-```
-aura-wp-elementor-starter/
-├── style.css              # Header del tema y estilos base
-├── functions.php          # Funciones principales
-├── index.php             # Template principal  
-├── page.php              # Template para páginas
-├── single.php            # Template para posts
-├── assets/               # CSS y JavaScript
-├── templates/            # Page templates especiales
-├── template-parts/       # Partes reutilizables
-└── tools/               # Herramientas de desarrollo
-```
-
-## 🤝 Créditos
-
-**Desarrollado por [Aura Marketing](https://agenciaaura.mx)**  
-Agencia de marketing digital especializada en soluciones web para negocios locales.
-
-## 📄 Licencia
-
-GPL v2 o posterior. Úsalo libremente para tus proyectos comerciales.
-
-## 📁 Estructura del Theme
-
-```
-aura-wp-elementor-starter/
-├── style.css                 # Hoja de estilos principal y header del theme
-├── functions.php             # Funciones principales del theme
-├── index.php                 # Template principal
-├── header.php                # Header del sitio
-├── footer.php                # Footer del sitio
-├── page.php                  # Template para páginas
-├── single.php                # Template para posts individuales
-├── archive.php               # Template para archivos
-├── search.php                # Template para resultados de búsqueda
-├── 404.php                   # Template para página de error 404
-├── comments.php              # Template para comentarios
-├── sidebar.php               # Sidebar del sitio
-├── screenshot.png            # Captura de pantalla del theme
-├── template-parts/           # Partes de templates reutilizables
-│   └── content-archive.php
-├── templates/                # Page templates especiales
-│   ├── template-fullwidth.php
-│   └── template-blank.php
-├── assets/                   # Archivos de recursos
-│   ├── css/
-│   │   └── main.css         # Estilos adicionales
-│   └── js/
-│       └── main.js          # JavaScript del theme
-├── tools/                    # Herramientas de desarrollo
-│   ├── setup_theme.py       # Script de configuración
-│   ├── generate_screenshot.py
-│   └── theme.config.json    # Configuración del theme
-├── README.md                 # Documentación
-└── .gitignore               # Archivos a ignorar por Git
-```
-
-## 🎨 Templates Incluidos
-
-### Page Templates
-- **Full Width**: Template sin sidebar para páginas completas
-- **Blank**: Template en blanco, ideal para Elementor
-
-### Template Parts
-- **Content Archive**: Para mostrar posts en archivos y búsquedas
-
-## ⚙️ Configuración
-
-### Menús
-El theme soporta dos ubicaciones de menús:
-- **Primary Menu**: Menú principal en el header
-- **Footer Menu**: Menú en el footer
-
-### Widgets
-Áreas de widgets disponibles:
-- **Sidebar**: Barra lateral principal
-- **Footer 1**: Área de widgets en el footer
-
-### Funcionalidades de WordPress
-- ✅ Custom Logo
-- ✅ Post Thumbnails
-- ✅ Responsive Embeds
-- ✅ WordPress Block Styles
-- ✅ Wide Alignment
-- ✅ HTML5 Support
-- ✅ Title Tag
-
-## 🔧 Herramientas de Desarrollo
-
-### Setup Theme (Python)
-```bash
-cd tools/
-python setup_theme.py
-```
-
-Este script automatiza:
-- Actualización de información del theme
-- Validación de archivos requeridos
-- Configuración del entorno de desarrollo
-- Adición de hooks y filtros adicionales
-
-### Generate Screenshot
-```bash
-cd tools/
+# Generar screenshot.png
 python generate_screenshot.py
 ```
 
-Genera automáticamente una captura de pantalla profesional del theme.
+### Build ZIP
 
-## 🎯 Compatibilidad con Elementor
-
-Este theme está optimizado para Elementor:
-
-- **Header & Footer Support**: Usa `add_theme_support('elementor-header-footer')`
-- **Template Blank**: Template especial sin elementos del theme
-- **Clean CSS**: Estilos que no interfieren con Elementor
-- **Hook Integration**: Hooks compatibles con Elementor
-
-## 🚀 Optimizaciones de Rendimiento
-
-- **Lazy Loading**: Para imágenes (cuando esté soportado)
-- **Minified CSS**: CSS optimizado y minificado
-- **Efficient JavaScript**: JavaScript optimizado
-- **Modern CSS**: Uso de CSS custom properties
-
-## 🔒 Seguridad
-
-- Eliminación de la versión de WordPress
-- Headers de seguridad
-- Validación de datos
-- Escape de salidas
-
-## ♿ Accesibilidad
-
-- Enlaces de salto al contenido
-- Navegación por teclado
-- Texto para lectores de pantalla
-- Manejo adecuado del foco
-
-## 🎨 Personalización
-
-### CSS Custom Properties
-El theme utiliza CSS custom properties para fácil personalización:
-
-```css
-:root {
-    --primary-color: #0073aa;
-    --secondary-color: #005177;
-    --text-color: #333333;
-    /* ... más variables */
-}
+```bash
+# Crear archivo ZIP del tema
+python build_zip.py
 ```
 
-### Child Theme
-Se recomienda crear un child theme para personalizaciones:
+## ⚙️ Configuraciones del Customizer
 
-```php
-// functions.php del child theme
-function child_enqueue_styles() {
-    wp_enqueue_style('parent-style', get_template_directory_uri() . '/style.css');
-}
-add_action('wp_enqueue_scripts', 'child_enqueue_styles');
-```
+### 📱 Header Settings
+- Logo personalizable
+- Menú responsive  
+- Colores de header
+- Tipografía de navegación
 
-## 📝 Desarrollo
+### 📱 Layout Settings
+- Ancho del contenedor
+- Espaciado de secciones
+- Layout de sidebar
 
-### Hooks Disponibles
-- `aura_before_header`
-- `aura_after_header`
-- `aura_before_content`
-- `aura_after_content`
-- `aura_before_footer`
-- `aura_after_footer`
+### 🎨 Branding Settings  
+- Colores primarios y secundarios
+- Tipografía de headings y body
+- Configuraciones de botones
 
-### Filtros Disponibles
-- `aura_excerpt_length`
-- `aura_excerpt_more`
-- `aura_nav_menu_args`
+### 🔗 Social Media
+- Enlaces a redes sociales
+- Iconos personalizables
 
-## 🤝 Contribuir
+### 📝 Scripts Settings
+- Google Analytics
+- Facebook Pixel
+- Scripts personalizados
 
-1. Fork el proyecto
-2. Crea una rama para tu feature (`git checkout -b feature/nueva-caracteristica`)
-3. Commit tus cambios (`git commit -am 'Añadir nueva característica'`)
+### 🦶 Footer Settings
+- Textos de copyright
+- Información de contacto
+- Configuración de widgets
+
+## 🧩 Templates Elementor Incluidos
+
+### 🏠 Home Template
+- Hero section con CTA
+- Sección de servicios
+- Sobre nosotros
+- Contacto
+
+### ℹ️ About Template  
+- Historia de la empresa
+- Equipo de trabajo
+- Valores corporativos
+
+### 🛠️ Services Template
+- Grid de servicios
+- Descripciones detalladas
+- Call-to-actions
+
+### 📞 Contact Template
+- Formulario de contacto
+- Información de ubicación
+- Mapa interactivo
+
+## 🔄 Sistema de Placeholders
+
+Reemplazo automático en templates:
+
+- `AURA_BUSINESS_NAME` → Nombre del negocio
+- `AURA_BUSINESS_TAGLINE` → Eslogan del negocio
+
+## 🐛 Debug y Reporting
+
+El plugin incluye un sistema de reportes que muestra:
+
+- ✅ Estado de Elementor (instalado/activo)
+- 📄 URLs de páginas creadas
+- 📊 Datos Elementor importados
+- 🎯 Status de templates JSON
+
+## 📋 Requisitos del Sistema
+
+- **WordPress**: 5.0+
+- **PHP**: 7.4+
+- **Elementor**: 3.0+ (instalación automática)
+- **Python**: 3.6+ (para herramientas de desarrollo)
+
+## 🤝 Contribución
+
+1. Fork del proyecto
+2. Crear rama de feature (`git checkout -b feature/nueva-caracteristica`)
+3. Commit cambios (`git commit -am 'Añadir nueva característica'`)
 4. Push a la rama (`git push origin feature/nueva-caracteristica`)
-5. Abre un Pull Request
+5. Crear Pull Request
 
 ## 📄 Licencia
 
-Este theme está licenciado bajo GPL v2 o posterior. Ver [LICENSE](LICENSE) para más detalles.
+Este proyecto está bajo la Licencia GPL v2 - ver el archivo [LICENSE](LICENSE) para detalles.
 
 ## 🆘 Soporte
 
-- [Documentación de WordPress](https://developer.wordpress.org/themes/)
-- [Documentación de Elementor](https://developers.elementor.com/)
-- [Issues en GitHub](https://github.com/your-username/aura-wp-elementor-starter/issues)
-
-## 📈 Changelog
-
-### v1.0.0
-- Lanzamiento inicial
-- Soporte completo para Elementor
-- Templates responsive
-- Herramientas de desarrollo incluidas
+- **Documentación**: [README.md](README.md)
+- **Issues**: [GitHub Issues](https://github.com/luicalariosmx22/aura-wp-elementor-starter/issues)
+- **Contacto**: [Aura Marketing](https://agenciaaura.mx)
 
 ---
 
-**Desarrollado con ❤️ para la comunidad de WordPress**
+**Desarrollado con ❤️ por [Aura Marketing](https://agenciaaura.mx)**
+
+*Acelera tu desarrollo WordPress con herramientas profesionales y automatización inteligente.*

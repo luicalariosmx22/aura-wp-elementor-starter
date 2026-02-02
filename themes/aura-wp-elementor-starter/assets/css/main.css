@@ -1,0 +1,320 @@
+/* Aura Elementor Starter - Main CSS */
+
+/* CSS Variables - Brand Colors are injected via functions.php */
+
+/* Basic body styles - only for theme elements */
+body {
+    background-color: var(--aura-color-bg, #ffffff);
+    color: var(--aura-color-text, #333333);
+}
+
+/* Theme links styling */
+a {
+    color: var(--aura-color-link, #007cba);
+    text-decoration: underline;
+}
+
+a:hover {
+    color: var(--aura-color-link-hover, #005177);
+}
+
+/* Theme containers */
+.aura-container {
+    max-width: var(--aura-container-max, 1200px);
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.aura-container--wide {
+    width: 100%;
+    max-width: var(--aura-container-max, 1200px);
+    margin: 0 auto;
+    padding: 0 16px;
+}
+
+/* Header Styles */
+.aura-header {
+    background: var(--aura-color-bg, #ffffff);
+    border-bottom: 1px solid #e5e5e5;
+    padding: var(--aura-header-pad-y, 16px) 0;
+}
+
+.aura-header__inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.aura-header__branding {
+    flex: 1;
+}
+
+.aura-header__logo img {
+    max-width: var(--aura-logo-max-desktop, 180px);
+    height: auto;
+}
+
+.aura-header__site-title {
+    margin: 0;
+    font-size: 1.5rem;
+}
+
+.aura-header__site-title a {
+    text-decoration: none;
+    color: var(--aura-color-text, #333333);
+}
+
+.aura-header__site-description {
+    margin: 0.25rem 0 0;
+    font-size: 0.875rem;
+    color: #666;
+}
+
+/* Mobile Logo Sizing */
+@media (max-width: 768px) {
+    .aura-header__logo img {
+        max-width: var(--aura-logo-max-mobile, 140px);
+    }
+}
+
+/* Mobile Menu Toggle */
+.aura-header__toggle {
+    display: none;
+    background: none;
+    border: none;
+    padding: 0.5rem;
+    cursor: pointer;
+}
+
+.aura-header__toggle-bar {
+    display: block;
+    width: 25px;
+    height: 3px;
+    background: var(--aura-color-text, #333333);
+    margin: 5px 0;
+    transition: 0.3s;
+}
+
+@media (max-width: 768px) {
+    .aura-header__toggle {
+        display: block;
+    }
+    
+    .aura-header__nav-container {
+        display: none;
+        width: 100%;
+        order: 3;
+    }
+    
+    .aura-header__nav-container.is-open {
+        display: block;
+    }
+}
+
+/* Navigation */
+.aura-header__navigation ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    gap: 2rem;
+}
+
+.aura-header__navigation li {
+    position: relative;
+}
+
+.aura-header__navigation a {
+    text-decoration: none;
+    color: var(--aura-color-text, #333333);
+    padding: 0.5rem 0;
+    display: block;
+}
+
+.aura-header__navigation a:hover {
+    color: var(--aura-color-link, #007cba);
+}
+
+@media (max-width: 768px) {
+    .aura-header__navigation ul {
+        flex-direction: column;
+        gap: 0;
+    }
+    
+    .aura-header__navigation a {
+        padding: 1rem 0;
+        border-bottom: 1px solid #eee;
+    }
+}
+
+/* Header Actions */
+.aura-header__actions {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.aura-header__social {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.aura-header__social-link {
+    display: inline-block;
+    width: 32px;
+    height: 32px;
+    text-decoration: none;
+}
+
+.aura-header__cta-button {
+    background: var(--aura-color-secondary, #005177);
+    color: #ffffff;
+    text-decoration: none;
+    padding: 0.5rem 1rem;
+    border-radius: var(--aura-radius, 12px);
+    font-size: 0.875rem;
+    transition: background-color 0.3s ease;
+}
+
+.aura-header__cta-button:hover {
+    background: var(--aura-color-link-hover, #005177);
+    color: #ffffff;
+}
+
+/* Theme CTA Button - Global class */
+.aura-cta {
+    background: var(--aura-color-secondary, #005177);
+    color: #ffffff;
+    text-decoration: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: var(--aura-radius, 12px);
+    font-size: 1rem;
+    display: inline-block;
+    transition: background-color 0.3s ease;
+}
+
+.aura-cta:hover {
+    background: var(--aura-color-link-hover, #005177);
+    color: #ffffff;
+}
+    text-decoration: none;
+    color: var(--aura-color-text, #333333);
+}
+
+.main-navigation ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    gap: 1.5rem;
+}
+
+.main-navigation a {
+    text-decoration: none;
+    color: var(--aura-color-text, #333333);
+}
+
+.main-navigation a:hover {
+    color: var(--aura-color-link, #007cba);
+}
+
+/* Site Footer - Basic padding only */
+.site-footer {
+    background: var(--aura-color-surface, #f8f9fa);
+    color: var(--aura-color-muted, #6c757d);
+    padding: 2rem 0;
+    margin-top: 3rem;
+    text-align: center;
+}
+
+.site-footer a {
+    color: var(--aura-color-link, #007cba);
+}
+
+.site-footer a:hover {
+    color: var(--aura-color-link-hover, #005177);
+}
+
+/* Footer Widgets */
+.footer-widgets {
+    display: grid;
+    gap: 2rem;
+    margin-bottom: 2rem;
+}
+
+.footer-columns-1 { grid-template-columns: 1fr; }
+.footer-columns-2 { grid-template-columns: repeat(2, 1fr); }
+.footer-columns-3 { grid-template-columns: repeat(3, 1fr); }
+.footer-columns-4 { grid-template-columns: repeat(4, 1fr); }
+
+/* Footer responsive */
+@media (max-width: 768px) {
+    .footer-columns-2,
+    .footer-columns-3,
+    .footer-columns-4 {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Footer Socials */
+.footer-socials {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.footer-social-link {
+    display: inline-block;
+    text-decoration: none;
+}
+
+/* Entry content spacing */
+.entry-content > * {
+    margin-bottom: 1.5rem;
+}
+
+.entry-content > *:last-child {
+    margin-bottom: 0;
+}
+
+/* Entry content links - specific scope to avoid Elementor conflicts */
+.entry-content a {
+    color: var(--aura-color-link, #007cba);
+    text-decoration: underline;
+}
+
+.entry-content a:hover {
+    color: var(--aura-color-link-hover, #005177);
+}
+
+/* Basic responsive images */
+.entry-content img {
+    max-width: 100%;
+    height: auto;
+}
+
+/* Mobile navigation toggle - hide by default */
+.menu-toggle {
+    display: none;
+}
+
+/* Basic responsive behavior */
+@media (max-width: 768px) {
+    .site-header .aura-container {
+        flex-direction: column;
+        gap: 1rem;
+    }
+    
+    .main-navigation ul {
+        flex-direction: column;
+        text-align: center;
+        gap: 0.5rem;
+    }
+    
+    .aura-container {
+        padding: 0 16px;
+    }
+}

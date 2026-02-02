@@ -1,0 +1,75 @@
+{
+  "_description": "Configuración base para temas de WordPress personalizados por negocio. Los placeholders serán reemplazados por el script setup_theme.py",
+  "placeholders": {
+    "THEME_NAME_PLACEHOLDER": "AURA BUSINESS NAME",
+    "THEME_SLUG_PLACEHOLDER": "aura-business-slug",
+    "TEXT_DOMAIN_PLACEHOLDER": "aura-business-slug", 
+    "PREFIX_PHP_PLACEHOLDER": "aura_abc_",
+    "TAGLINE_PLACEHOLDER": "AURA BUSINESS TAGLINE"
+  },
+  "meta": {
+    "theme_name": "THEME_NAME_PLACEHOLDER",
+    "text_domain": "TEXT_DOMAIN_PLACEHOLDER",
+    "version": "1.0.0",
+    "author": "Aura Marketing",
+    "author_uri": "https://agenciaaura.mx",
+    "description": "TAGLINE_PLACEHOLDER - Tema WordPress optimizado para Elementor",
+    "license": "GPL v2 or later",
+    "license_uri": "https://www.gnu.org/licenses/gpl-2.0.html",
+    "requires_php": "7.4",
+    "requires_wp": "5.0",
+    "tested_wp": "6.4",
+    "elementor_tested": "3.18",
+    "elementor_pro_tested": "3.18"
+  },
+  "features": {
+    "post_thumbnails": true,
+    "custom_logo": true,
+    "custom_background": true,
+    "custom_header": false,
+    "menus": {
+      "primary": "Primary Menu"
+    },
+    "widgets": {
+      "sidebar": "Sidebar",
+      "footer-1": "Footer 1"
+    },
+    "image_sizes": {
+      "featured": {
+        "width": 1200,
+        "height": 600,
+        "crop": true
+      },
+      "thumbnail-large": {
+        "width": 400,
+        "height": 300,
+        "crop": true
+      }
+    }
+  },
+  "elementor": {
+    "theme_builder": false,
+    "custom_breakpoints": true,
+    "experiments": [],
+    "default_schemes": false
+  },
+  "assets": {
+    "css": [
+      "style.css",
+      "assets/css/main.css"
+    ],
+    "js": [
+      "assets/js/main.js"
+    ]
+  },
+  "development": {
+    "prefix": "PREFIX_PHP_PLACEHOLDER",
+    "text_domain": "TEXT_DOMAIN_PLACEHOLDER"
+  },
+  "tags": [
+    "elementor",
+    "responsive",
+    "business",
+    "professional"
+  ]
+}

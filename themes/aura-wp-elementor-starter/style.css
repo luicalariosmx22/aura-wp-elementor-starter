@@ -1,0 +1,49 @@
+/*
+Theme Name: THEME_NAME_PLACEHOLDER
+Theme URI: https://agenciaaura.mx
+Author: Aura Marketing
+Author URI: https://agenciaaura.mx
+Description: Theme base Elementor-ready para THEME_NAME_PLACEHOLDER. (TAGLINE_PLACEHOLDER)
+Version: 0.1.0
+License: GNU General Public License v2 or later
+License URI: https://www.gnu.org/licenses/gpl-2.0.html
+Text Domain: TEXT_DOMAIN_PLACEHOLDER
+Tags: elementor, responsive, custom-logo, custom-menu
+
+Tema WordPress minimalista optimizado para Elementor.
+Desarrollado por Aura Marketing - https://agenciaaura.mx
+*/
+
+/* Reset básico */
+* {
+    box-sizing: border-box;
+}
+
+/* Body reset para no interferir con Elementor */
+body {
+    margin: 0;
+    padding: 0;
+}
+
+/* Imágenes responsive */
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+/* Container básico para contenido no-Elementor */
+.aura-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* Elementor compatibility - no interferir con el page builder */
+.elementor-widget-container {
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}
+
+.elementor-section.elementor-section-boxed > .elementor-container {
+    max-width: 1200px;
+}

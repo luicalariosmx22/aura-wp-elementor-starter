@@ -1,0 +1,41 @@
+/* Aura Site Bootstrapper - Admin Styles */
+
+.aura-bootstrapper-admin {
+    max-width: 800px;
+}
+
+.aura-bootstrapper-admin .card {
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.aura-bootstrapper-admin .button {
+    margin-right: 10px;
+    margin-bottom: 10px;
+}
+
+.aura-bootstrapper-features {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.aura-feature-card {
+    background: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 20px;
+    text-align: center;
+}
+
+.aura-feature-card h3 {
+    margin-top: 0;
+    color: #0073aa;
+}
+
+.aura-feature-card .dashicons {
+    font-size: 48px;
+    color: #0073aa;
+    margin-bottom: 15px;
+}
