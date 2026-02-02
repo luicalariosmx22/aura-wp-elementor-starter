@@ -1,25 +1,37 @@
 # 📦 Aura Starter Kit - Distribution Releases
 
-## 🚀 Downloads Disponibles
+## � **VERSIÓN CORREGIDA v0.1.1** - ¡Error Crítico Solucionado!
 
-### 🎯 **Bundle Completo** (Recomendado)
-**📄 [`aura-starter-kit-complete-20260202_133236.zip`](dist/aura-starter-kit-complete-20260202_133236.zip)**
-- ✅ Tema WordPress completo
-- ✅ Plugin automatizador
+### 🔥 **Downloads Corregidos** (Recomendados)
+
+### 🎯 **Bundle Completo Corregido** (Recomendado)
+**📄 [`aura-starter-kit-complete-20260202_134510.zip`](dist/aura-starter-kit-complete-20260202_134510.zip)**
+- ✅ **ERRORES PHP CORREGIDOS** - No más "critical error"
+- ✅ Tema WordPress funcionalmente completo
+- ✅ Plugin automatizador funcional
 - ✅ Instrucciones de instalación
 - ✅ Todo en un solo archivo
 
-### 🎨 **Solo Tema**
-**📄 [`aura-wp-elementor-starter-v0.1.0-20260202_133236.zip`](dist/aura-wp-elementor-starter-v0.1.0-20260202_133236.zip)**
+### 🎨 **Solo Tema Corregido**
+**📄 [`aura-elementor-starter-v0.1.0-20260202_134510.zip`](dist/aura-elementor-starter-v0.1.0-20260202_134510.zip)**
+- 🎨 **SIN ERRORES PHP** - Instalación segura
 - 🎨 Tema WordPress con 40+ opciones Customizer
 - 📱 Diseño responsive con variables CSS
 - 🧩 Compatible con Elementor
 
-### 🔌 **Solo Plugin**
-**📄 [`aura-site-bootstrapper-v0.1.0-20260202_133236.zip`](dist/aura-site-bootstrapper-v0.1.0-20260202_133236.zip)**
-- 🔌 Plugin automatizador de sitios
+### 🔌 **Solo Plugin Corregido**
+**📄 [`aura-site-bootstrapper-v0.1.0-20260202_134510.zip`](dist/aura-site-bootstrapper-v0.1.0-20260202_134510.zip)**
+- 🔌 Plugin automatizador funcional
 - 🧩 Integración completa de Elementor
 - 📄 4 templates JSON incluidos
+
+## 🔧 **¿Qué se Corrigió en v0.1.1?**
+
+- ❌ **Error eliminado**: "There has been a critical error on this website"
+- ✅ **PHP placeholders corregidos**: `PREFIX_PHP_PLACEHOLDER` → `aura_aes_`
+- ✅ **Text domains válidos**: `TEXT_DOMAIN_PLACEHOLDER` → `aura-wp-elementor-starter`
+- ✅ **Funciones PHP válidas**: Todos los nombres de función ahora funcionan
+- ✅ **Sintaxis limpia**: Sin errores de PHP
 
 ## 🔧 Instalación Rápida
 
