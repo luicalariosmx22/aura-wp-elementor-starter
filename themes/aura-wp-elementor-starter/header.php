@@ -8,22 +8,22 @@
  */
 
 // Get customizer options
-$header_style = get_theme_mod('PREFIX_PHP_PLACEHOLDERheader_style', 'style-1');
-$header_sticky = get_theme_mod('PREFIX_PHP_PLACEHOLDERheader_sticky', false);
-$show_socials = get_theme_mod('PREFIX_PHP_PLACEHOLDERshow_socials', true);
-$show_cta = get_theme_mod('PREFIX_PHP_PLACEHOLDERshow_cta', false);
-$cta_text = get_theme_mod('PREFIX_PHP_PLACEHOLDERcta_text', __('Contáctanos', 'TEXT_DOMAIN_PLACEHOLDER'));
-$cta_url = get_theme_mod('PREFIX_PHP_PLACEHOLDERcta_url', '');
-$header_extra_html = get_theme_mod('PREFIX_PHP_PLACEHOLDERheader_extra_html', '');
+$header_style = get_theme_mod('aura_aes_header_style', 'style-1');
+$header_sticky = get_theme_mod('aura_aes_header_sticky', false);
+$show_socials = get_theme_mod('aura_aes_show_socials', true);
+$show_cta = get_theme_mod('aura_aes_show_cta', false);
+$cta_text = get_theme_mod('aura_aes_cta_text', __('Contáctanos', 'aura-wp-elementor-starter'));
+$cta_url = get_theme_mod('aura_aes_cta_url', '');
+$header_extra_html = get_theme_mod('aura_aes_header_extra_html', '');
 
 // Social media URLs
 $social_networks = array(
-    'facebook'  => get_theme_mod('PREFIX_PHP_PLACEHOLDERsocial_facebook', ''),
-    'instagram' => get_theme_mod('PREFIX_PHP_PLACEHOLDERsocial_instagram', ''),
-    'tiktok'    => get_theme_mod('PREFIX_PHP_PLACEHOLDERsocial_tiktok', ''),
-    'youtube'   => get_theme_mod('PREFIX_PHP_PLACEHOLDERsocial_youtube', ''),
-    'whatsapp'  => get_theme_mod('PREFIX_PHP_PLACEHOLDERsocial_whatsapp', ''),
-    'x'         => get_theme_mod('PREFIX_PHP_PLACEHOLDERsocial_x', ''),
+    'facebook'  => get_theme_mod('aura_aes_social_facebook', ''),
+    'instagram' => get_theme_mod('aura_aes_social_instagram', ''),
+    'tiktok'    => get_theme_mod('aura_aes_social_tiktok', ''),
+    'youtube'   => get_theme_mod('aura_aes_social_youtube', ''),
+    'whatsapp'  => get_theme_mod('aura_aes_social_whatsapp', ''),
+    'x'         => get_theme_mod('aura_aes_social_x', ''),
 );
 
 // Check if we have at least one social URL
@@ -86,7 +86,7 @@ if ($header_sticky) {
             <?php endif; ?>
 
             <!-- Mobile Menu Toggle -->
-            <button class="aura-header__toggle" aria-controls="primary-menu" aria-expanded="false" aria-label="<?php esc_attr_e('Toggle navigation', 'TEXT_DOMAIN_PLACEHOLDER'); ?>">
+            <button class="aura-header__toggle" aria-controls="primary-menu" aria-expanded="false" aria-label="<?php esc_attr_e('Toggle navigation', 'aura-wp-elementor-starter'); ?>">
                 <span class="aura-header__toggle-bar"></span>
                 <span class="aura-header__toggle-bar"></span>
                 <span class="aura-header__toggle-bar"></span>
@@ -96,7 +96,7 @@ if ($header_sticky) {
             <div class="aura-header__nav-container" id="aura-header-nav-container">
                 
                 <!-- Primary Navigation -->
-                <nav class="aura-header__navigation" id="primary-navigation" aria-label="<?php esc_attr_e('Primary Menu', 'TEXT_DOMAIN_PLACEHOLDER'); ?>">
+                <nav class="aura-header__navigation" id="primary-navigation" aria-label="<?php esc_attr_e('Primary Menu', 'aura-wp-elementor-starter'); ?>">
                     <?php
                     wp_nav_menu(array(
                         'theme_location'  => 'primary',
@@ -123,7 +123,7 @@ if ($header_sticky) {
                                        class="aura-header__social-link aura-header__social-link--<?php echo esc_attr($network); ?>"
                                        target="_blank" 
                                        rel="noopener noreferrer"
-                                       aria-label="<?php echo esc_attr(sprintf(__('Visit our %s', 'TEXT_DOMAIN_PLACEHOLDER'), ucfirst($network))); ?>">
+                                       aria-label="<?php echo esc_attr(sprintf(__('Visit our %s', 'aura-wp-elementor-starter'), ucfirst($network))); ?>">
                                         <span class="aura-header__social-icon aura-header__social-icon--<?php echo esc_attr($network); ?>"></span>
                                     </a>
                                 <?php endif; ?>

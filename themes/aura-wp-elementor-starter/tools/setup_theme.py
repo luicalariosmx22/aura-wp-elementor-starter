@@ -114,15 +114,15 @@ def validate_no_placeholders(theme_root, allow_remaining=False):
     
     # Common placeholder patterns
     placeholder_patterns = [
-        r'THEME_NAME_PLACEHOLDER',
-        r'TAGLINE_PLACEHOLDER', 
-        r'aura-business-slug',
-        r'aura_abc_',
-        r'PREFIX_PHP_PLACEHOLDER',
-        r'TEXT_DOMAIN_PLACEHOLDER',
-        r'BUSINESS_NAME_PLACEHOLDER',
-        r'AURA BUSINESS NAME',
-        r'AURA BUSINESS TAGLINE'
+        r'Aura Elementor Starter',
+        r'Professional WordPress Theme', 
+        r'aura-wp-elementor-starter',
+        r'aura_aes_',
+        r'aura_aes_',
+        r'aura-wp-elementor-starter',
+        r'Aura Elementor Starter',
+        r'Aura Elementor Starter',
+        r'Professional WordPress Theme'
     ]
     
     text_files = find_text_files(theme_root)
@@ -168,23 +168,23 @@ def setup_theme(business_name, tagline, slug):
     # Define all replacements
     replacements = {
         # Main placeholders
-        'THEME_NAME_PLACEHOLDER': business_name,
-        'TAGLINE_PLACEHOLDER': tagline,
-        'aura-business-slug': slug,
-        'aura_abc_': php_prefix,
+        'Aura Elementor Starter': business_name,
+        'Professional WordPress Theme': tagline,
+        'aura-wp-elementor-starter': slug,
+        'aura_aes_': php_prefix,
         
         # Additional placeholders for compatibility
-        'PREFIX_PHP_PLACEHOLDER': php_prefix,
-        'TEXT_DOMAIN_PLACEHOLDER': text_domain,
-        'BUSINESS_NAME_PLACEHOLDER': business_name,
-        'AURA BUSINESS NAME': business_name,
-        'AURA BUSINESS TAGLINE': tagline,
+        'aura_aes_': php_prefix,
+        'aura-wp-elementor-starter': text_domain,
+        'Aura Elementor Starter': business_name,
+        'Aura Elementor Starter': business_name,
+        'Professional WordPress Theme': tagline,
         
         # Theme metadata
-        'VERSION_PLACEHOLDER': '1.0.0',
-        'DESCRIPTION_PLACEHOLDER': f'Professional WordPress theme for {business_name}',
-        'AUTHOR_PLACEHOLDER': 'Aura Marketing',
-        'AUTHOR_URI_PLACEHOLDER': 'https://agenciaaura.mx'
+        '1.0.0': '1.0.0',
+        'Professional WordPress theme for Aura Elementor Starter': f'Professional WordPress theme for {business_name}',
+        'Aura Marketing': 'Aura Marketing',
+        'https://agenciaaura.mx': 'https://agenciaaura.mx'
     }
     
     print("🎯 Theme Setup Configuration")

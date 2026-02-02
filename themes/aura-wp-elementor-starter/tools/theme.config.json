@@ -1,19 +1,19 @@
 {
   "_description": "Configuración base para temas de WordPress personalizados por negocio. Los placeholders serán reemplazados por el script setup_theme.py",
   "placeholders": {
-    "THEME_NAME_PLACEHOLDER": "AURA BUSINESS NAME",
-    "THEME_SLUG_PLACEHOLDER": "aura-business-slug",
-    "TEXT_DOMAIN_PLACEHOLDER": "aura-business-slug", 
-    "PREFIX_PHP_PLACEHOLDER": "aura_abc_",
-    "TAGLINE_PLACEHOLDER": "AURA BUSINESS TAGLINE"
+    "Aura Elementor Starter": "Aura Elementor Starter",
+    "THEME_SLUG_PLACEHOLDER": "aura-wp-elementor-starter",
+    "aura-wp-elementor-starter": "aura-wp-elementor-starter", 
+    "aura_aes_": "aura_aes_",
+    "Professional WordPress Theme": "Professional WordPress Theme"
   },
   "meta": {
-    "theme_name": "THEME_NAME_PLACEHOLDER",
-    "text_domain": "TEXT_DOMAIN_PLACEHOLDER",
+    "theme_name": "Aura Elementor Starter",
+    "text_domain": "aura-wp-elementor-starter",
     "version": "1.0.0",
     "author": "Aura Marketing",
     "author_uri": "https://agenciaaura.mx",
-    "description": "TAGLINE_PLACEHOLDER - Tema WordPress optimizado para Elementor",
+    "description": "Professional WordPress Theme - Tema WordPress optimizado para Elementor",
     "license": "GPL v2 or later",
     "license_uri": "https://www.gnu.org/licenses/gpl-2.0.html",
     "requires_php": "7.4",
@@ -63,8 +63,8 @@
     ]
   },
   "development": {
-    "prefix": "PREFIX_PHP_PLACEHOLDER",
-    "text_domain": "TEXT_DOMAIN_PLACEHOLDER"
+    "prefix": "aura_aes_",
+    "text_domain": "aura-wp-elementor-starter"
   },
   "tags": [
     "elementor",

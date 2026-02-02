@@ -14,7 +14,7 @@ get_header(); ?>
         <h1 class="page-title">
             <?php
             printf(
-                esc_html__('Search Results for: %s', 'TEXT_DOMAIN_PLACEHOLDER'),
+                esc_html__('Search Results for: %s', 'aura-wp-elementor-starter'),
                 '<span>' . get_search_query() . '</span>'
             );
             ?>
@@ -38,7 +38,7 @@ get_header(); ?>
                                 </a>
                             </span>
                             <span class="byline">
-                                <?php esc_html_e('by', 'TEXT_DOMAIN_PLACEHOLDER'); ?> 
+                                <?php esc_html_e('by', 'aura-wp-elementor-starter'); ?> 
                                 <span class="author vcard">
                                     <a class="url fn n" href="<?php echo esc_url(get_author_posts_url(get_the_author_meta('ID'))); ?>">
                                         <?php echo esc_html(get_the_author()); ?>
@@ -63,7 +63,7 @@ get_header(); ?>
 
                 <footer class="entry-footer">
                     <a href="<?php echo esc_url(get_permalink()); ?>" class="read-more">
-                        <?php esc_html_e('Read More', 'TEXT_DOMAIN_PLACEHOLDER'); ?>
+                        <?php esc_html_e('Read More', 'aura-wp-elementor-starter'); ?>
                     </a>
                 </footer>
             </article>
@@ -71,8 +71,8 @@ get_header(); ?>
 
         <?php
         the_posts_navigation(array(
-            'prev_text' => esc_html__('&laquo; Older posts', 'TEXT_DOMAIN_PLACEHOLDER'),
-            'next_text' => esc_html__('Newer posts &raquo;', 'TEXT_DOMAIN_PLACEHOLDER'),
+            'prev_text' => esc_html__('&laquo; Older posts', 'aura-wp-elementor-starter'),
+            'next_text' => esc_html__('Newer posts &raquo;', 'aura-wp-elementor-starter'),
         ));
         ?>
 
@@ -80,11 +80,11 @@ get_header(); ?>
         
         <section class="no-results not-found">
             <header class="page-header">
-                <h1 class="page-title"><?php esc_html_e('Nothing Found', 'TEXT_DOMAIN_PLACEHOLDER'); ?></h1>
+                <h1 class="page-title"><?php esc_html_e('Nothing Found', 'aura-wp-elementor-starter'); ?></h1>
             </header>
 
             <div class="page-content">
-                <p><?php esc_html_e('Sorry, but nothing matched your search terms. Please try again with some different keywords.', 'TEXT_DOMAIN_PLACEHOLDER'); ?></p>
+                <p><?php esc_html_e('Sorry, but nothing matched your search terms. Please try again with some different keywords.', 'aura-wp-elementor-starter'); ?></p>
                 <?php get_search_form(); ?>
             </div>
         </section>

@@ -14,9 +14,9 @@ if (function_exists('elementor_theme_do_location') && elementor_theme_do_locatio
     // Elementor Footer Template
 } else {
     // Default Footer
-    $footer_columns = get_theme_mod('PREFIX_PHP_PLACEHOLDERfooter_columns', 3);
-    $footer_text = get_theme_mod('PREFIX_PHP_PLACEHOLDERfooter_text', '© {year} AURA BUSINESS NAME. Todos los derechos reservados.');
-    $show_footer_socials = get_theme_mod('PREFIX_PHP_PLACEHOLDERshow_footer_socials', true);
+    $footer_columns = get_theme_mod('aura_aes_footer_columns', 3);
+    $footer_text = get_theme_mod('aura_aes_footer_text', '© {year} Aura Elementor Starter. Todos los derechos reservados.');
+    $show_footer_socials = get_theme_mod('aura_aes_show_footer_socials', true);
 ?>
 <footer class="site-footer">
     <div class="aura-container">
@@ -45,16 +45,16 @@ if (function_exists('elementor_theme_do_location') && elementor_theme_do_locatio
                     <?php
                     // Social networks array
                     $social_networks = array(
-                        'facebook' => __('Facebook', 'TEXT_DOMAIN_PLACEHOLDER'),
-                        'instagram' => __('Instagram', 'TEXT_DOMAIN_PLACEHOLDER'),
-                        'tiktok' => __('TikTok', 'TEXT_DOMAIN_PLACEHOLDER'),
-                        'youtube' => __('YouTube', 'TEXT_DOMAIN_PLACEHOLDER'),
-                        'whatsapp' => __('WhatsApp', 'TEXT_DOMAIN_PLACEHOLDER'),
-                        'x' => __('X (Twitter)', 'TEXT_DOMAIN_PLACEHOLDER'),
+                        'facebook' => __('Facebook', 'aura-wp-elementor-starter'),
+                        'instagram' => __('Instagram', 'aura-wp-elementor-starter'),
+                        'tiktok' => __('TikTok', 'aura-wp-elementor-starter'),
+                        'youtube' => __('YouTube', 'aura-wp-elementor-starter'),
+                        'whatsapp' => __('WhatsApp', 'aura-wp-elementor-starter'),
+                        'x' => __('X (Twitter)', 'aura-wp-elementor-starter'),
                     );
                     
                     foreach ($social_networks as $network => $label) {
-                        $social_url = get_theme_mod('PREFIX_PHP_PLACEHOLDERsocial_' . $network, '');
+                        $social_url = get_theme_mod('aura_aes_social_' . $network, '');
                         if ($social_url) {
                             printf(
                                 '<a href="%s" target="_blank" rel="noopener" class="footer-social-link footer-social-%s" aria-label="%s">📱</a>',

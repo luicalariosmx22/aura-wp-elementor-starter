@@ -19,7 +19,7 @@ if (post_password_required()) {
             $comment_count = get_comments_number();
             if ('1' === $comment_count) {
                 printf(
-                    _x('One thought on &ldquo;%1$s&rdquo;', 'comments title', 'TEXT_DOMAIN_PLACEHOLDER'),
+                    _x('One thought on &ldquo;%1$s&rdquo;', 'comments title', 'aura-wp-elementor-starter'),
                     get_the_title()
                 );
             } else {
@@ -29,7 +29,7 @@ if (post_password_required()) {
                         '%1$s thoughts on &ldquo;%2$s&rdquo;',
                         $comment_count,
                         'comments title',
-                        'TEXT_DOMAIN_PLACEHOLDER'
+                        'aura-wp-elementor-starter'
                     ),
                     number_format_i18n($comment_count),
                     get_the_title()
@@ -55,7 +55,7 @@ if (post_password_required()) {
         // If comments are closed and there are comments, let's leave a little note, shall we?
         if (!comments_open()) :
         ?>
-            <p class="no-comments"><?php esc_html_e('Comments are closed.', 'TEXT_DOMAIN_PLACEHOLDER'); ?></p>
+            <p class="no-comments"><?php esc_html_e('Comments are closed.', 'aura-wp-elementor-starter'); ?></p>
         <?php
         endif;
 

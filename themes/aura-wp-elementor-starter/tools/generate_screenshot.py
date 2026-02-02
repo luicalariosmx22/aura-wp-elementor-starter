@@ -103,7 +103,7 @@ def create_theme_screenshot():
     hero_center_x = width // 2
     
     # Business name (main title)
-    business_name = "THEME_NAME_PLACEHOLDER"
+    business_name = "Aura Elementor Starter"
     try:
         bbox = draw.textbbox((0, 0), business_name, font=title_font)
         text_width = bbox[2] - bbox[0]
@@ -115,7 +115,7 @@ def create_theme_screenshot():
              font=title_font, fill=primary_color)
     
     # Business tagline
-    tagline = "TAGLINE_PLACEHOLDER"
+    tagline = "Professional WordPress Theme"
     try:
         bbox = draw.textbbox((0, 0), tagline, font=subtitle_font)
         tagline_width = bbox[2] - bbox[0]

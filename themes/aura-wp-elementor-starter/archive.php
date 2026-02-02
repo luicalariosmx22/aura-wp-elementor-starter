@@ -25,8 +25,8 @@ get_header(); ?>
 
         <?php
         the_posts_navigation(array(
-            'prev_text' => esc_html__('&laquo; Older posts', 'TEXT_DOMAIN_PLACEHOLDER'),
-            'next_text' => esc_html__('Newer posts &raquo;', 'TEXT_DOMAIN_PLACEHOLDER'),
+            'prev_text' => esc_html__('&laquo; Older posts', 'aura-wp-elementor-starter'),
+            'next_text' => esc_html__('Newer posts &raquo;', 'aura-wp-elementor-starter'),
         ));
         ?>
 
@@ -34,11 +34,11 @@ get_header(); ?>
         
         <section class="no-results not-found">
             <header class="page-header">
-                <h1 class="page-title"><?php esc_html_e('Nothing Found', 'TEXT_DOMAIN_PLACEHOLDER'); ?></h1>
+                <h1 class="page-title"><?php esc_html_e('Nothing Found', 'aura-wp-elementor-starter'); ?></h1>
             </header>
 
             <div class="page-content">
-                <p><?php esc_html_e('It looks like nothing was found at this location. Maybe try a search?', 'TEXT_DOMAIN_PLACEHOLDER'); ?></p>
+                <p><?php esc_html_e('It looks like nothing was found at this location. Maybe try a search?', 'aura-wp-elementor-starter'); ?></p>
                 <?php get_search_form(); ?>
             </div>
         </section>

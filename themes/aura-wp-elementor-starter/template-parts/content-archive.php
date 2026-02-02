@@ -22,7 +22,7 @@
                     </a>
                 </span>
                 <span class="byline">
-                    <?php esc_html_e('by', 'TEXT_DOMAIN_PLACEHOLDER'); ?> 
+                    <?php esc_html_e('by', 'aura-wp-elementor-starter'); ?> 
                     <span class="author vcard">
                         <a class="url fn n" href="<?php echo esc_url(get_author_posts_url(get_the_author_meta('ID'))); ?>">
                             <?php echo esc_html(get_the_author()); ?>
@@ -48,12 +48,12 @@
     <footer class="entry-footer">
         <?php if (has_category()) : ?>
             <span class="cat-links">
-                <?php esc_html_e('Posted in', 'TEXT_DOMAIN_PLACEHOLDER'); ?> <?php the_category(', '); ?>
+                <?php esc_html_e('Posted in', 'aura-wp-elementor-starter'); ?> <?php the_category(', '); ?>
             </span>
         <?php endif; ?>
 
         <a href="<?php echo esc_url(get_permalink()); ?>" class="read-more">
-            <?php esc_html_e('Read More', 'TEXT_DOMAIN_PLACEHOLDER'); ?>
+            <?php esc_html_e('Read More', 'aura-wp-elementor-starter'); ?>
         </a>
     </footer>
 </article>

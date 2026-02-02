@@ -21,7 +21,7 @@ require_once get_template_directory() . '/inc/customizer.php';
 /**
  * Theme setup and configuration
  */
-function PREFIX_PHP_PLACEHOLDERtheme_setup() {
+function aura_theme_setup() {
     // Add default posts and comments RSS feed links to head
     add_theme_support('automatic-feed-links');
     
@@ -52,31 +52,31 @@ function PREFIX_PHP_PLACEHOLDERtheme_setup() {
     
     // Register navigation menus
     register_nav_menus(array(
-        'primary' => esc_html__('Primary Menu', 'TEXT_DOMAIN_PLACEHOLDER'),
+        'primary' => esc_html__('Primary Menu', 'aura-wp-elementor-starter'),
     ));
     
     // Elementor compatibility
     add_theme_support('elementor-header-footer');
 }
-add_action('after_setup_theme', 'PREFIX_PHP_PLACEHOLDERtheme_setup');
+add_action('after_setup_theme', 'aura_theme_setup');
 
 /**
  * Set content width for media embeds and images
  */
-function PREFIX_PHP_PLACEHOLDERcontent_width() {
+function aura_content_width() {
     if (!isset($GLOBALS['content_width'])) {
         $GLOBALS['content_width'] = 1200;
     }
 }
-add_action('after_setup_theme', 'PREFIX_PHP_PLACEHOLDERcontent_width', 0);
+add_action('after_setup_theme', 'aura_content_width', 0);
 
 /**
  * Enqueue scripts and styles
  */
-function PREFIX_PHP_PLACEHOLDERscripts() {
+function aura_scripts() {
     // Theme stylesheet
     wp_enqueue_style(
-        'TEXT_DOMAIN_PLACEHOLDER-style',
+        'aura-wp-elementor-starter-style',
         get_stylesheet_uri(),
         array(),
         wp_get_theme()->get('Version')
@@ -84,30 +84,30 @@ function PREFIX_PHP_PLACEHOLDERscripts() {
     
     // Main stylesheet
     wp_enqueue_style(
-        'TEXT_DOMAIN_PLACEHOLDER-main',
+        'aura-wp-elementor-starter-main',
         get_template_directory_uri() . '/assets/css/main.css',
-        array('TEXT_DOMAIN_PLACEHOLDER-style'),
+        array('aura-wp-elementor-starter-style'),
         wp_get_theme()->get('Version')
     );
     
     // Add customizer CSS variables
-    $logo_max_width_desktop = get_theme_mod('PREFIX_PHP_PLACEHOLDERlogo_max_width_desktop', 180);
-    $logo_max_width_mobile = get_theme_mod('PREFIX_PHP_PLACEHOLDERlogo_max_width_mobile', 140);
-    $header_padding_y = get_theme_mod('PREFIX_PHP_PLACEHOLDERheader_padding_y', 16);
+    $logo_max_width_desktop = get_theme_mod('aura_aes_logo_max_width_desktop', 180);
+    $logo_max_width_mobile = get_theme_mod('aura_aes_logo_max_width_mobile', 140);
+    $header_padding_y = get_theme_mod('aura_aes_header_padding_y', 16);
     
     // Brand Colors
-    $color_primary = get_theme_mod('PREFIX_PHP_PLACEHOLDERbrand_primary_color', '#007cba');
-    $color_secondary = get_theme_mod('PREFIX_PHP_PLACEHOLDERbrand_secondary_color', '#005177');
-    $color_bg = get_theme_mod('PREFIX_PHP_PLACEHOLDERbrand_background_color', '#ffffff');
-    $color_surface = get_theme_mod('PREFIX_PHP_PLACEHOLDERbrand_surface_color', '#f8f9fa');
-    $color_text = get_theme_mod('PREFIX_PHP_PLACEHOLDERbrand_text_color', '#333333');
-    $color_muted = get_theme_mod('PREFIX_PHP_PLACEHOLDERbrand_muted_color', '#6c757d');
-    $color_link = get_theme_mod('PREFIX_PHP_PLACEHOLDERbrand_link_color', '#007cba');
-    $color_link_hover = get_theme_mod('PREFIX_PHP_PLACEHOLDERbrand_link_hover_color', '#005177');
+    $color_primary = get_theme_mod('aura_aes_brand_primary_color', '#007cba');
+    $color_secondary = get_theme_mod('aura_aes_brand_secondary_color', '#005177');
+    $color_bg = get_theme_mod('aura_aes_brand_background_color', '#ffffff');
+    $color_surface = get_theme_mod('aura_aes_brand_surface_color', '#f8f9fa');
+    $color_text = get_theme_mod('aura_aes_brand_text_color', '#333333');
+    $color_muted = get_theme_mod('aura_aes_brand_muted_color', '#6c757d');
+    $color_link = get_theme_mod('aura_aes_brand_link_color', '#007cba');
+    $color_link_hover = get_theme_mod('aura_aes_brand_link_hover_color', '#005177');
     
     // Layout Settings
-    $container_max_width = get_theme_mod('PREFIX_PHP_PLACEHOLDERcontainer_max_width', 1200);
-    $global_radius = get_theme_mod('PREFIX_PHP_PLACEHOLDERglobal_radius', 12);
+    $container_max_width = get_theme_mod('aura_aes_container_max_width', 1200);
+    $global_radius = get_theme_mod('aura_aes_global_radius', 12);
     
     $custom_css = "
         :root {
@@ -130,11 +130,11 @@ function PREFIX_PHP_PLACEHOLDERscripts() {
             --aura-radius: {$global_radius}px;
         }
     ";
-    wp_add_inline_style('TEXT_DOMAIN_PLACEHOLDER-main', $custom_css);
+    wp_add_inline_style('aura-wp-elementor-starter-main', $custom_css);
     
     // Main JavaScript (no jQuery dependency unless needed)
     wp_enqueue_script(
-        'TEXT_DOMAIN_PLACEHOLDER-main',
+        'aura-wp-elementor-starter-main',
         get_template_directory_uri() . '/assets/js/main.js',
         array(), // No dependencies
         wp_get_theme()->get('Version'),
@@ -146,16 +146,16 @@ function PREFIX_PHP_PLACEHOLDERscripts() {
         wp_enqueue_script('comment-reply');
     }
 }
-add_action('wp_enqueue_scripts', 'PREFIX_PHP_PLACEHOLDERscripts');
+add_action('wp_enqueue_scripts', 'aura_aes_scripts');
 
 /**
  * Register widget areas
  */
-function PREFIX_PHP_PLACEHOLDERwidgets_init() {
+function aura_aes_widgets_init() {
     register_sidebar(array(
-        'name'          => esc_html__('Sidebar', 'TEXT_DOMAIN_PLACEHOLDER'),
+        'name'          => esc_html__('Sidebar', 'aura-wp-elementor-starter'),
         'id'            => 'sidebar-1',
-        'description'   => esc_html__('Add widgets here.', 'TEXT_DOMAIN_PLACEHOLDER'),
+        'description'   => esc_html__('Add widgets here.', 'aura-wp-elementor-starter'),
         'before_widget' => '<section id="%1$s" class="widget %2$s">',
         'after_widget'  => '</section>',
         'before_title'  => '<h2 class="widget-title">',
@@ -165,9 +165,9 @@ function PREFIX_PHP_PLACEHOLDERwidgets_init() {
     // Footer widget areas
     for ($i = 1; $i <= 4; $i++) {
         register_sidebar(array(
-            'name'          => sprintf(esc_html__('Footer %d', 'TEXT_DOMAIN_PLACEHOLDER'), $i),
+            'name'          => sprintf(esc_html__('Footer %d', 'aura-wp-elementor-starter'), $i),
             'id'            => 'footer-' . $i,
-            'description'   => sprintf(esc_html__('Footer widget area %d.', 'TEXT_DOMAIN_PLACEHOLDER'), $i),
+            'description'   => sprintf(esc_html__('Footer widget area %d.', 'aura-wp-elementor-starter'), $i),
             'before_widget' => '<section id="%1$s" class="widget %2$s">',
             'after_widget'  => '</section>',
             'before_title'  => '<h3 class="widget-title">',
@@ -175,42 +175,42 @@ function PREFIX_PHP_PLACEHOLDERwidgets_init() {
         ));
     }
 }
-add_action('widgets_init', 'PREFIX_PHP_PLACEHOLDERwidgets_init');
+add_action('widgets_init', 'aura_aes_widgets_init');
 
 /**
  * Custom excerpt length
  */
-function PREFIX_PHP_PLACEHOLDERexcerpt_length($length) {
+function aura_aes_excerpt_length($length) {
     return 25;
 }
-add_filter('excerpt_length', 'PREFIX_PHP_PLACEHOLDERexcerpt_length');
+add_filter('excerpt_length', 'aura_aes_excerpt_length');
 
 /**
  * Custom excerpt more text
  */
-function PREFIX_PHP_PLACEHOLDERexcerpt_more($more) {
+function aura_aes_excerpt_more($more) {
     return '&hellip;';
 }
-add_filter('excerpt_more', 'PREFIX_PHP_PLACEHOLDERexcerpt_more');
+add_filter('excerpt_more', 'aura_aes_excerpt_more');
 
 /**
  * Add head scripts from customizer
  */
-function PREFIX_PHP_PLACEHOLDERhead_scripts() {
-    $head_scripts = get_theme_mod('PREFIX_PHP_PLACEHOLDERhead_scripts', '');
+function aura_aes_head_scripts() {
+    $head_scripts = get_theme_mod('aura_aes_head_scripts', '');
     if (!empty($head_scripts)) {
         echo $head_scripts . "\n";
     }
 }
-add_action('wp_head', 'PREFIX_PHP_PLACEHOLDERhead_scripts', 999);
+add_action('wp_head', 'aura_aes_head_scripts', 999);
 
 /**
  * Add body open scripts from customizer
  */
-function PREFIX_PHP_PLACEHOLDERbody_open_scripts() {
-    $body_scripts = get_theme_mod('PREFIX_PHP_PLACEHOLDERbody_open_scripts', '');
+function aura_aes_body_open_scripts() {
+    $body_scripts = get_theme_mod('aura_aes_body_open_scripts', '');
     if (!empty($body_scripts)) {
         echo $body_scripts . "\n";
     }
 }
-add_action('wp_body_open', 'PREFIX_PHP_PLACEHOLDERbody_open_scripts', 1);
+add_action('wp_body_open', 'aura_aes_body_open_scripts', 1);

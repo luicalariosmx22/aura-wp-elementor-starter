@@ -21,7 +21,7 @@ get_header(); ?>
                 the_content();
                 
                 wp_link_pages(array(
-                    'before' => '<div class="page-links">' . esc_html__('Pages:', 'TEXT_DOMAIN_PLACEHOLDER'),
+                    'before' => '<div class="page-links">' . esc_html__('Pages:', 'aura-wp-elementor-starter'),
                     'after'  => '</div>',
                 ));
                 ?>
@@ -33,7 +33,7 @@ get_header(); ?>
                     edit_post_link(
                         sprintf(
                             wp_kses(
-                                __('Edit <span class="screen-reader-text">%s</span>', 'TEXT_DOMAIN_PLACEHOLDER'),
+                                __('Edit <span class="screen-reader-text">%s</span>', 'aura-wp-elementor-starter'),
                                 array(
                                     'span' => array(
                                         'class' => array(),

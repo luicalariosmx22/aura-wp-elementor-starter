@@ -39,7 +39,7 @@ def get_theme_info():
             for line in content.split('\n'):
                 if line.strip().startswith('Theme Name:'):
                     name = line.split(':', 1)[1].strip()
-                    if name and name != 'THEME_NAME_PLACEHOLDER':
+                    if name and name != 'Aura Elementor Starter':
                         # Convert to slug format
                         theme_info['name'] = name.lower().replace(' ', '-').replace('_', '-')
                         
@@ -48,7 +48,7 @@ def get_theme_info():
             for line in content.split('\n'):
                 if line.strip().startswith('Version:'):
                     version = line.split(':', 1)[1].strip()
-                    if version and version != 'VERSION_PLACEHOLDER':
+                    if version and version != '1.0.0':
                         theme_info['version'] = version
                         
     except (FileNotFoundError, UnicodeDecodeError):

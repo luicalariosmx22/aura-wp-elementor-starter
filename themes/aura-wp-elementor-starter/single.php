@@ -23,14 +23,14 @@ get_header(); ?>
                             </time>
                         </span>
                         <span class="byline">
-                            <?php esc_html_e('by', 'TEXT_DOMAIN_PLACEHOLDER'); ?> 
+                            <?php esc_html_e('by', 'aura-wp-elementor-starter'); ?> 
                             <a href="<?php echo esc_url(get_author_posts_url(get_the_author_meta('ID'))); ?>">
                                 <?php echo esc_html(get_the_author()); ?>
                             </a>
                         </span>
                         <?php if (has_category()) : ?>
                             <span class="cat-links">
-                                <?php esc_html_e('in', 'TEXT_DOMAIN_PLACEHOLDER'); ?> 
+                                <?php esc_html_e('in', 'aura-wp-elementor-starter'); ?> 
                                 <?php the_category(', '); ?>
                             </span>
                         <?php endif; ?>
@@ -49,7 +49,7 @@ get_header(); ?>
                 the_content();
 
                 wp_link_pages(array(
-                    'before' => '<div class="page-links">' . esc_html__('Pages:', 'TEXT_DOMAIN_PLACEHOLDER'),
+                    'before' => '<div class="page-links">' . esc_html__('Pages:', 'aura-wp-elementor-starter'),
                     'after'  => '</div>',
                 ));
                 ?>
@@ -58,7 +58,7 @@ get_header(); ?>
             <footer class="entry-footer">
                 <?php if (has_tag()) : ?>
                     <div class="tags-links">
-                        <?php esc_html_e('Tags:', 'TEXT_DOMAIN_PLACEHOLDER'); ?> 
+                        <?php esc_html_e('Tags:', 'aura-wp-elementor-starter'); ?> 
                         <?php the_tags('', ', ', ''); ?>
                     </div>
                 <?php endif; ?>
@@ -67,7 +67,7 @@ get_header(); ?>
                 edit_post_link(
                     sprintf(
                         wp_kses(
-                            __('Edit <span class="screen-reader-text">%s</span>', 'TEXT_DOMAIN_PLACEHOLDER'),
+                            __('Edit <span class="screen-reader-text">%s</span>', 'aura-wp-elementor-starter'),
                             array(
                                 'span' => array(
                                     'class' => array(),
@@ -85,8 +85,8 @@ get_header(); ?>
 
         <?php
         the_post_navigation(array(
-            'prev_text' => '<span class="nav-subtitle">' . esc_html__('Previous:', 'TEXT_DOMAIN_PLACEHOLDER') . '</span> <span class="nav-title">%title</span>',
-            'next_text' => '<span class="nav-subtitle">' . esc_html__('Next:', 'TEXT_DOMAIN_PLACEHOLDER') . '</span> <span class="nav-title">%title</span>',
+            'prev_text' => '<span class="nav-subtitle">' . esc_html__('Previous:', 'aura-wp-elementor-starter') . '</span> <span class="nav-title">%title</span>',
+            'next_text' => '<span class="nav-subtitle">' . esc_html__('Next:', 'aura-wp-elementor-starter') . '</span> <span class="nav-title">%title</span>',
         ));
 
         // If comments are open or we have at least one comment, load up the comment template.
