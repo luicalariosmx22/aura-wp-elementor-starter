@@ -32,7 +32,7 @@
             "elType": "widget",
             "widgetType": "heading",
             "settings": {
-              "title": "AURA BUSINESS NAME",
+              "title": "{{AURA_BUSINESS_NAME}}",
               "size": "xl",
               "header_size": "h1",
               "align": "center",
@@ -44,7 +44,7 @@
             "elType": "widget",
             "widgetType": "text-editor",
             "settings": {
-              "editor": "<p style=\"text-align: center; font-size: 18px; color: #666;\">AURA BUSINESS TAGLINE</p>",
+              "editor": "<p style=\"text-align: center; font-size: 18px; color: #666;\">{{AURA_BUSINESS_TAGLINE}}</p>",
               "align": "center"
             }
           },

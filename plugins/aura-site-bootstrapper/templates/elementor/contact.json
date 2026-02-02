@@ -41,7 +41,7 @@
             "elType": "widget",
             "widgetType": "text-editor",
             "settings": {
-              "editor": "<p style=\"text-align: center; font-size: 18px; color: #666; max-width: 800px; margin: 0 auto;\">¿Tienes alguna pregunta o necesitas más información sobre nuestros servicios? En AURA BUSINESS NAME estamos aquí para ayudarte. Ponte en contacto con nosotros a través de cualquiera de los siguientes medios.</p>",
+              "editor": "<p style=\"text-align: center; font-size: 18px; color: #666; max-width: 800px; margin: 0 auto;\">¿Tienes alguna pregunta o necesitas más información sobre nuestros servicios? En {{AURA_BUSINESS_NAME}} estamos aquí para ayudarte. Ponte en contacto con nosotros a través de cualquiera de los siguientes medios.</p>",
               "align": "center"
             }
           }

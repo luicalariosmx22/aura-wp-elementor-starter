@@ -14,6 +14,90 @@ if (!defined('ABSPATH')) {
 }
 
 /**
+ * Get supported tokens list for Discovery Mode
+ * 
+ * @return array List of supported tokens
+ * @author Aura Marketing (https://agenciaaura.mx)
+ */
+function asb_get_supported_tokens() {
+    return array(
+        '{{AURA_BUSINESS_NAME}}',
+        '{{AURA_BUSINESS_TAGLINE}}',
+        '{{AURA_PHONE}}',
+        '{{AURA_EMAIL}}',
+        '{{AURA_WHATSAPP}}'
+    );
+}
+
+/**
+ * Scan for tokens recursively in data structure
+ * 
+ * @param mixed $data The data to scan
+ * @param array $tokens List of tokens to search for
+ * @param string $path Current path for tracking
+ * @return array Matches with token, path, and sample
+ * @author Aura Marketing (https://agenciaaura.mx)
+ */
+function asb_scan_tokens_recursive($data, array $tokens, $path = 'root') {
+    $matches = array();
+    
+    if (is_string($data)) {
+        foreach ($tokens as $token) {
+            if (strpos($data, $token) !== false) {
+                $sample = strlen($data) > 100 ? substr($data, 0, 97) . '...' : $data;
+                $matches[] = array(
+                    'token' => $token,
+                    'path' => $path,
+                    'sample' => $sample
+                );
+            }
+        }
+    } elseif (is_array($data)) {
+        foreach ($data as $key => $value) {
+            $current_path = $path . '.' . $key;
+            $sub_matches = asb_scan_tokens_recursive($value, $tokens, $current_path);
+            $matches = array_merge($matches, $sub_matches);
+        }
+    } elseif (is_object($data)) {
+        foreach ($data as $key => $value) {
+            $current_path = $path . '->' . $key;
+            $sub_matches = asb_scan_tokens_recursive($value, $tokens, $current_path);
+            $matches = array_merge($matches, $sub_matches);
+        }
+    }
+    
+    return $matches;
+}
+
+/**
+ * Apply token replacement map recursively
+ * 
+ * @param mixed $data The data to process
+ * @param array $map Token replacement map
+ * @return mixed Processed data
+ * @author Aura Marketing (https://agenciaaura.mx)
+ */
+function asb_apply_token_map_recursive($data, array $map) {
+    if (is_string($data)) {
+        return strtr($data, $map);
+    } elseif (is_array($data)) {
+        $result = array();
+        foreach ($data as $key => $value) {
+            // Don't replace in keys, only in values
+            $result[$key] = asb_apply_token_map_recursive($value, $map);
+        }
+        return $result;
+    } elseif (is_object($data)) {
+        foreach ($data as $key => $value) {
+            $data->$key = asb_apply_token_map_recursive($value, $map);
+        }
+        return $data;
+    }
+    
+    return $data;
+}
+
+/**
  * Check if Elementor is active
  * 
  * @return bool True if Elementor is active, false otherwise
@@ -260,11 +344,12 @@ function asb_load_elementor_template_data($file_path) {
 }
 
 /**
- * Import Elementor JSON templates to pages
+ * Import Elementor JSON templates to pages with Discovery Mode support
  * 
  * @param array $page_ids Array of page IDs mapped by slug
  * @param bool $reapply Whether to reapply templates even if data exists
- * @return array Results summary with success/failure details
+ * @return array Results summary with success/failure details and Discovery Mode data
+ * @author Aura Marketing (https://agenciaaura.mx)
  */
 function asb_import_elementor_json_templates($page_ids, $reapply = false) {
     // Check if Elementor is active
@@ -291,7 +376,11 @@ function asb_import_elementor_json_templates($page_ids, $reapply = false) {
         'pages' => array(),
         'templates_applied' => 0,
         'templates_skipped' => 0,
-        'errors' => array()
+        'errors' => array(),
+        // Discovery Mode data
+        'tokens_found_before' => array(),
+        'tokens_found_after' => array(),
+        'unresolved_paths' => array()
     );
     
     // Get site info for placeholder replacement
@@ -306,6 +395,15 @@ function asb_import_elementor_json_templates($page_ids, $reapply = false) {
     
     // Get templates directory
     $templates_dir = ASB_PATH . 'templates/elementor/';
+    
+    // Get supported tokens for Discovery Mode
+    $supported_tokens = asb_get_supported_tokens();
+    
+    // Initialize Discovery Mode counters
+    foreach ($supported_tokens as $token) {
+        $results['tokens_found_before'][$token] = 0;
+        $results['tokens_found_after'][$token] = 0;
+    }
     
     foreach ($page_ids as $page_slug => $page_id) {
         $page_result = array(
@@ -369,12 +467,33 @@ function asb_import_elementor_json_templates($page_ids, $reapply = false) {
             continue;
         }
         
-        // Replace placeholders in template data
-        $processed_data = asb_replace_placeholders_recursive(
-            $template_data['data'], 
-            $site_name, 
-            $tagline
+        // Discovery Mode: Scan before replacement
+        $scan_before = asb_scan_tokens_recursive($template_data['data'], $supported_tokens, $page_slug);
+        foreach ($scan_before as $match) {
+            $results['tokens_found_before'][$match['token']]++;
+        }
+        
+        // Create token replacement map with new format
+        $token_map = array(
+            '{{AURA_BUSINESS_NAME}}' => $site_name,
+            '{{AURA_BUSINESS_TAGLINE}}' => $tagline,
+            '{{AURA_PHONE}}' => get_option('asb_business_phone', ''),
+            '{{AURA_EMAIL}}' => get_option('asb_business_email', ''),
+            '{{AURA_WHATSAPP}}' => get_option('asb_business_whatsapp', '')
         );
+        
+        // Apply token replacement using new system
+        $processed_data = asb_apply_token_map_recursive($template_data['data'], $token_map);
+        
+        // Discovery Mode: Scan after replacement
+        $scan_after = asb_scan_tokens_recursive($processed_data, $supported_tokens, $page_slug);
+        foreach ($scan_after as $match) {
+            $results['tokens_found_after'][$match['token']]++;
+            // Collect unresolved paths (limit to 50)
+            if (count($results['unresolved_paths']) < 50) {
+                $results['unresolved_paths'][] = $match['path'] . ' -> ' . $match['token'];
+            }
+        }
         
         // Save template data using Elementor's DB manager
         try {

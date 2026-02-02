@@ -217,13 +217,25 @@ function asb_admin_page() {
                             <input type="checkbox" id="import_elementor_json" name="import_elementor_json" value="1" 
                                    <?php echo $elementor_active ? 'checked' : 'disabled'; ?> />
                             <label for="import_elementor_json"><?php _e('Importar plantillas Elementor (JSON) en las páginas', 'aura-site-bootstrapper'); ?></label>
-                            <?php if (!$elementor_active): ?>
+                    <?php if (!$elementor_active): ?>
                                 <p class="description" style="color: #856404;">
                                     <em><?php _e('Requiere Elementor activo', 'aura-site-bootstrapper'); ?></em>
                                 </p>
                             <?php else: ?>
                                 <p class="description"><?php _e('Esto cargará diseños predefinidos con contenido de ejemplo para cada página.', 'aura-site-bootstrapper'); ?></p>
                             <?php endif; ?>
+                        </td>
+                    </tr>
+                    
+                    <!-- Discovery Mode para placeholders -->
+                    <tr>
+                        <th scope="row">
+                            <label for="discovery_mode"><?php _e('Modo Discovery placeholders', 'aura-site-bootstrapper'); ?></label>
+                        </th>
+                        <td>
+                            <input type="checkbox" id="discovery_mode" name="discovery_mode" value="1" />
+                            <label for="discovery_mode"><?php _e('Mostrar reporte de tokens encontrados y reemplazados', 'aura-site-bootstrapper'); ?></label>
+                            <p class="description"><?php _e('Activa para ver estadísticas detalladas de placeholders {{AURA_...}} en los templates JSON.', 'aura-site-bootstrapper'); ?></p>
                         </td>
                     </tr>
                 </table>
@@ -267,6 +279,7 @@ function asb_handle_form_submission() {
     $apply_meta = !empty($_POST['apply_elementor_meta']);
     $reapply = !empty($_POST['reapply_elementor']);
     $import_json = !empty($_POST['import_elementor_json']);
+    $discovery_mode = !empty($_POST['discovery_mode']);
     
     $results = array();
     
@@ -424,18 +437,78 @@ function asb_handle_form_submission() {
         $debug_report .= '</div>';
     }
     
+    // Discovery Mode Report
+    $discovery_report = '';
+    if ($discovery_mode && $import_json && isset($template_results)) {
+        $discovery_report .= '<h4>' . __('Discovery Mode - Reporte de Placeholders:', 'aura-site-bootstrapper') . '</h4>';
+        $discovery_report .= '<div style="font-family: monospace; font-size: 12px; background: #f8f9fa; padding: 12px; border: 1px solid #dee2e6; border-radius: 4px; margin: 10px 0;">';
+        
+        // Tokens found before replacement
+        if (!empty($template_results['tokens_found_before'])) {
+            $discovery_report .= '<strong>' . __('🔍 Tokens encontrados ANTES del reemplazo:', 'aura-site-bootstrapper') . '</strong><br>';
+            $discovery_report .= '<table style="margin: 8px 0; border-collapse: collapse;">';
+            $discovery_report .= '<tr><th style="border: 1px solid #ddd; padding: 4px 8px; background: #e9ecef;">Token</th><th style="border: 1px solid #ddd; padding: 4px 8px; background: #e9ecef;">Cantidad</th></tr>';
+            foreach ($template_results['tokens_found_before'] as $token => $count) {
+                if ($count > 0) {
+                    $discovery_report .= sprintf(
+                        '<tr><td style="border: 1px solid #ddd; padding: 4px 8px;">%s</td><td style="border: 1px solid #ddd; padding: 4px 8px; text-align: center;">%d</td></tr>',
+                        esc_html($token),
+                        $count
+                    );
+                }
+            }
+            $discovery_report .= '</table>';
+        }
+        
+        // Tokens found after replacement
+        if (!empty($template_results['tokens_found_after'])) {
+            $total_unresolved = array_sum($template_results['tokens_found_after']);
+            if ($total_unresolved > 0) {
+                $discovery_report .= '<strong style="color: #dc3545;">' . __('⚠️ Tokens NO RESUELTOS después del reemplazo:', 'aura-site-bootstrapper') . '</strong><br>';
+                $discovery_report .= '<table style="margin: 8px 0; border-collapse: collapse;">';
+                $discovery_report .= '<tr><th style="border: 1px solid #ddd; padding: 4px 8px; background: #f8d7da;">Token</th><th style="border: 1px solid #ddd; padding: 4px 8px; background: #f8d7da;">Cantidad</th></tr>';
+                foreach ($template_results['tokens_found_after'] as $token => $count) {
+                    if ($count > 0) {
+                        $discovery_report .= sprintf(
+                            '<tr><td style="border: 1px solid #ddd; padding: 4px 8px;">%s</td><td style="border: 1px solid #ddd; padding: 4px 8px; text-align: center; color: #dc3545;">%d</td></tr>',
+                            esc_html($token),
+                            $count
+                        );
+                    }
+                }
+                $discovery_report .= '</table>';
+                
+                // Show unresolved paths (limited to 50)
+                if (!empty($template_results['unresolved_paths'])) {
+                    $discovery_report .= '<strong>' . __('📍 Rutas con tokens no resueltos (máx. 50):', 'aura-site-bootstrapper') . '</strong><br>';
+                    $discovery_report .= '<ul style="margin: 8px 0; max-height: 200px; overflow-y: auto; background: #fff; padding: 8px; border: 1px solid #ddd;">';
+                    foreach ($template_results['unresolved_paths'] as $path) {
+                        $discovery_report .= '<li style="margin-bottom: 2px;">' . esc_html($path) . '</li>';
+                    }
+                    $discovery_report .= '</ul>';
+                }
+            } else {
+                $discovery_report .= '<strong style="color: #28a745;">' . __('✅ Todos los tokens fueron resueltos correctamente', 'aura-site-bootstrapper') . '</strong><br>';
+            }
+        }
+        
+        $discovery_report .= '</div>';
+    }
+    
     // Save results for display
     if (!empty($results)) {
         set_transient('asb_admin_notice', array(
             'type' => 'success',
             'message' => implode('. ', $results) . '.',
-            'debug_report' => $debug_report
+            'debug_report' => $debug_report,
+            'discovery_report' => $discovery_report
         ), 30);
     } else {
         set_transient('asb_admin_notice', array(
             'type' => 'warning',
             'message' => __('No se realizaron cambios. Las páginas y menús pueden ya existir.', 'aura-site-bootstrapper'),
-            'debug_report' => $debug_report
+            'debug_report' => $debug_report,
+            'discovery_report' => $discovery_report
         ), 30);
     }
     
@@ -459,6 +532,13 @@ function asb_admin_notices() {
         if (!empty($notice['debug_report'])) {
             echo '<div style="margin-top: 15px; padding: 10px; background: #f0f0f1; border-left: 4px solid #72aee6; border-radius: 3px;">';
             echo $notice['debug_report']; // This is already escaped in generation
+            echo '</div>';
+        }
+        
+        // Show discovery mode report if available
+        if (!empty($notice['discovery_report'])) {
+            echo '<div style="margin-top: 15px; padding: 10px; background: #fff3cd; border-left: 4px solid #ffc107; border-radius: 3px;">';
+            echo $notice['discovery_report']; // This is already escaped in generation
             echo '</div>';
         }
         

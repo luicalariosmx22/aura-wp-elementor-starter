@@ -41,7 +41,7 @@
             "elType": "widget",
             "widgetType": "text-editor",
             "settings": {
-              "editor": "<p style=\"text-align: center; font-size: 18px; color: #666; max-width: 800px; margin: 0 auto;\">En AURA BUSINESS NAME ofrecemos una amplia gama de servicios diseñados para satisfacer las necesidades específicas de tu negocio y ayudarte a alcanzar tus objetivos.</p>",
+              "editor": "<p style=\"text-align: center; font-size: 18px; color: #666; max-width: 800px; margin: 0 auto;\">En {{AURA_BUSINESS_NAME}} ofrecemos una amplia gama de servicios diseñados para satisfacer las necesidades específicas de tu negocio y ayudarte a alcanzar tus objetivos.</p>",
               "align": "center"
             }
           }

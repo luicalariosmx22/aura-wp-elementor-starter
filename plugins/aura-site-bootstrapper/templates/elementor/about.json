@@ -29,7 +29,7 @@
             "elType": "widget",
             "widgetType": "heading",
             "settings": {
-              "title": "Acerca de AURA BUSINESS NAME",
+              "title": "Acerca de {{AURA_BUSINESS_NAME}}",
               "size": "xl",
               "header_size": "h1",
               "align": "center",
@@ -41,7 +41,7 @@
             "elType": "widget",
             "widgetType": "text-editor",
             "settings": {
-              "editor": "<p style=\"text-align: center; font-size: 18px; color: #666; max-width: 800px; margin: 0 auto;\">En AURA BUSINESS NAME nos dedicamos a brindar soluciones innovadoras y de calidad. Nuestra misión es ayudar a nuestros clientes a alcanzar sus objetivos con AURA BUSINESS TAGLINE.</p>",
+              "editor": "<p style=\"text-align: center; font-size: 18px; color: #666; max-width: 800px; margin: 0 auto;\">En {{AURA_BUSINESS_NAME}} nos dedicamos a brindar soluciones innovadoras y de calidad. Nuestra misión es ayudar a nuestros clientes a alcanzar sus objetivos con {{AURA_BUSINESS_TAGLINE}}.</p>",
               "align": "center"
             }
           }
@@ -93,7 +93,7 @@
             "elType": "widget",
             "widgetType": "text-editor",
             "settings": {
-              "editor": "<p style=\"text-align: center; max-width: 700px; margin: 0 auto; line-height: 1.6;\">Fundada con la visión de transformar la industria, AURA BUSINESS NAME comenzó como una pequeña empresa con grandes ideas. A lo largo de los años, hemos crecido y evolucionado, siempre manteniendo nuestros valores fundamentales y el compromiso con la excelencia.</p>",
+              "editor": "<p style=\"text-align: center; max-width: 700px; margin: 0 auto; line-height: 1.6;\">Fundada con la visión de transformar la industria, {{AURA_BUSINESS_NAME}} comenzó como una pequeña empresa con grandes ideas. A lo largo de los años, hemos crecido y evolucionado, siempre manteniendo nuestros valores fundamentales y el compromiso con la excelencia.</p>",
               "align": "center"
             }
           }
